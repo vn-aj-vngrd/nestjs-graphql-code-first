@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TweetsModule } from './modules/tweets/tweets.module';
-import { ApiModule } from './api/api.module';
+import { ApiModule } from './api/tweet/tweet.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PrismaMiddleware } from './middlewares/prisma.middleware';
