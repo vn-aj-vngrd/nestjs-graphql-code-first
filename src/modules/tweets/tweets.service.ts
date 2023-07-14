@@ -6,6 +6,11 @@ import { TweetsRepository } from './tweets.repository';
 export class TweetsService {
   constructor(private repository: TweetsRepository) {}
 
+  async getTweets() {
+    const tweets = await this.repository.getTweets({});
+    return tweets;
+  }
+
   async createTweet(params: { content: Tweet[`content`]; userId: User[`id`] }) {
     const { content, userId } = params;
 
@@ -24,10 +29,5 @@ export class TweetsService {
     // do other things in the service layer... e.g. send email of tweet
 
     return tweet;
-  }
-
-  async getTweets() {
-    const tweets = await this.repository.getTweets({});
-    return tweets;
   }
 }

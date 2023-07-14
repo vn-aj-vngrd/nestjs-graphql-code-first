@@ -6,11 +6,6 @@ import { PrismaService } from 'nestjs-prisma';
 export class TweetsRepository {
   constructor(private prisma: PrismaService) {}
 
-  async createTweet(params: { data: Prisma.TweetCreateInput }): Promise<Tweet> {
-    const { data } = params;
-    return this.prisma.tweet.create({ data });
-  }
-
   async getTweets(params: {
     skip?: number;
     take?: number;
@@ -20,6 +15,11 @@ export class TweetsRepository {
   }): Promise<Tweet[]> {
     const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.tweet.findMany({ skip, take, cursor, where, orderBy });
+  }
+
+  async createTweet(params: { data: Prisma.TweetCreateInput }): Promise<Tweet> {
+    const { data } = params;
+    return this.prisma.tweet.create({ data });
   }
 
   async updateTweet(params: {
