@@ -46,12 +46,12 @@ export class ShipsResolver {
   }
 
   @Mutation(() => Boolean)
-  async removeRecipe(@Args('id') id: string) {
+  async removeShip(@Args('id') id: string) {
     return this.shipsService.delete(id);
   }
 
   @Subscription(() => Ship)
-  recipeAdded() {
+  shipAdded() {
     return pubSub.asyncIterator(['shipAdded', 'shipEdited']);
   }
 }

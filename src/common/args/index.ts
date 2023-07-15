@@ -2,12 +2,29 @@ import { ArgsType, Field, InputType, Int } from '@nestjs/graphql';
 import { Max, Min } from 'class-validator';
 
 @InputType()
+@InputType()
 class Filter {
   @Field(() => String)
   field: string;
 
   @Field(() => String)
-  operator: string;
+  operator:
+    | 'equals'
+    | 'not'
+    | 'in'
+    | 'notIn'
+    | 'lt'
+    | 'lte'
+    | 'gt'
+    | 'gte'
+    | 'contains'
+    | 'startsWith'
+    | 'endsWith'
+    | 'before'
+    | 'after'
+    | 'on'
+    | 'notOn'
+    | 'between';
 
   @Field(() => String)
   value: string;
