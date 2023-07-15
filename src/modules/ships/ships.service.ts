@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Ship } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { ParamArgs } from 'src/common/params';
+import { ParamArgs } from 'src/common/args';
 import { ShipCreateInput } from 'src/database/@generated/ship/ship-create.input';
 import { ShipUpdateInput } from 'src/database/@generated/ship/ship-update.input';
 import { transformWhere } from 'src/utils/transform-where';
+
 import { ShipWithUser } from './ships.types';
 
 @Injectable()

@@ -1,9 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ShipWhereUniqueInput } from './ship-where-unique.input';
 import { Type } from 'class-transformer';
+
 import { ShipCreateInput } from './ship-create.input';
 import { ShipUpdateInput } from './ship-update.input';
+import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @ArgsType()
 export class UpsertOneShipArgs {

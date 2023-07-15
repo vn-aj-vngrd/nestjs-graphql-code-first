@@ -1,8 +1,9 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { PrismaMiddleware } from './middlewares/prisma.middleware';
 import { PrismaModule } from 'nestjs-prisma';
+
+import { PrismaMiddleware } from './middlewares/prisma.middleware';
 import { ShipsModule } from './modules/ships/ships.module';
 
 @Module({

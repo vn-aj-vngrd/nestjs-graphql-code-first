@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ShipWhereUniqueInput } from './ship-where-unique.input';
 import { Type } from 'class-transformer';
+
 import { ShipUpdateWithoutCreatedByInput } from './ship-update-without-created-by.input';
+import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @InputType()
 export class ShipUpdateWithWhereUniqueWithoutCreatedByInput {

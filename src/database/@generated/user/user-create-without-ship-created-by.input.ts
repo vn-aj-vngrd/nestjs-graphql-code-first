@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ShipCreateNestedManyWithoutUpdatedByInput } from '../ship/ship-create-nested-many-without-updated-by.input';
+
 import { ShipCreateNestedManyWithoutDeletedByInput } from '../ship/ship-create-nested-many-without-deleted-by.input';
+import { ShipCreateNestedManyWithoutUpdatedByInput } from '../ship/ship-create-nested-many-without-updated-by.input';
 
 @InputType()
 export class UserCreateWithoutShipCreatedByInput {

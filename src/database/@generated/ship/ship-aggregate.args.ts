@@ -1,13 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ShipWhereInput } from './ship-where.input';
-import { Type } from 'class-transformer';
-import { ShipOrderByWithRelationInput } from './ship-order-by-with-relation.input';
-import { ShipWhereUniqueInput } from './ship-where-unique.input';
 import { Int } from '@nestjs/graphql';
+import { Type } from 'class-transformer';
+
 import { ShipCountAggregateInput } from './ship-count-aggregate.input';
-import { ShipMinAggregateInput } from './ship-min-aggregate.input';
 import { ShipMaxAggregateInput } from './ship-max-aggregate.input';
+import { ShipMinAggregateInput } from './ship-min-aggregate.input';
+import { ShipOrderByWithRelationInput } from './ship-order-by-with-relation.input';
+import { ShipWhereInput } from './ship-where.input';
+import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @ArgsType()
 export class ShipAggregateArgs {

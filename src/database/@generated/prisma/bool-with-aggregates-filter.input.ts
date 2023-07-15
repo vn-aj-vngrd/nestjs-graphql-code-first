@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+
+import { NestedBoolFilter } from './nested-bool-filter.input';
 import { NestedBoolWithAggregatesFilter } from './nested-bool-with-aggregates-filter.input';
 import { NestedIntFilter } from './nested-int-filter.input';
-import { NestedBoolFilter } from './nested-bool-filter.input';
 
 @InputType()
 export class BoolWithAggregatesFilter {

@@ -1,14 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ShipWhereInput } from './ship-where.input';
+import { Int } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
+
+import { ShipCountAggregateInput } from './ship-count-aggregate.input';
+import { ShipMaxAggregateInput } from './ship-max-aggregate.input';
+import { ShipMinAggregateInput } from './ship-min-aggregate.input';
 import { ShipOrderByWithAggregationInput } from './ship-order-by-with-aggregation.input';
 import { ShipScalarFieldEnum } from './ship-scalar-field.enum';
 import { ShipScalarWhereWithAggregatesInput } from './ship-scalar-where-with-aggregates.input';
-import { Int } from '@nestjs/graphql';
-import { ShipCountAggregateInput } from './ship-count-aggregate.input';
-import { ShipMinAggregateInput } from './ship-min-aggregate.input';
-import { ShipMaxAggregateInput } from './ship-max-aggregate.input';
+import { ShipWhereInput } from './ship-where.input';
 
 @ArgsType()
 export class ShipGroupByArgs {

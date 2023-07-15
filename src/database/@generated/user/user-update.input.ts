@@ -1,12 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+
+import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
-import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
+import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { ShipUpdateManyWithoutCreatedByNestedInput } from '../ship/ship-update-many-without-created-by-nested.input';
-import { ShipUpdateManyWithoutUpdatedByNestedInput } from '../ship/ship-update-many-without-updated-by-nested.input';
 import { ShipUpdateManyWithoutDeletedByNestedInput } from '../ship/ship-update-many-without-deleted-by-nested.input';
+import { ShipUpdateManyWithoutUpdatedByNestedInput } from '../ship/ship-update-many-without-updated-by-nested.input';
 
 @InputType()
 export class UserUpdateInput {

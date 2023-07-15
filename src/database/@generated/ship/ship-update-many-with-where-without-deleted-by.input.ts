@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ShipScalarWhereInput } from './ship-scalar-where.input';
 import { Type } from 'class-transformer';
+
+import { ShipScalarWhereInput } from './ship-scalar-where.input';
 import { ShipUpdateManyMutationInput } from './ship-update-many-mutation.input';
 
 @InputType()

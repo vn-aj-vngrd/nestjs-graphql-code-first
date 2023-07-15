@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserCreateWithoutShipUpdatedByInput } from './user-create-without-ship-updated-by.input';
 import { Type } from 'class-transformer';
+
 import { UserCreateOrConnectWithoutShipUpdatedByInput } from './user-create-or-connect-without-ship-updated-by.input';
+import { UserCreateWithoutShipUpdatedByInput } from './user-create-without-ship-updated-by.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
 
 @InputType()

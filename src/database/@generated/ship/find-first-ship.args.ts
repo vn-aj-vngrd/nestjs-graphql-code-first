@@ -1,11 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { ArgsType } from '@nestjs/graphql';
-import { ShipWhereInput } from './ship-where.input';
-import { Type } from 'class-transformer';
-import { ShipOrderByWithRelationInput } from './ship-order-by-with-relation.input';
-import { ShipWhereUniqueInput } from './ship-where-unique.input';
 import { Int } from '@nestjs/graphql';
+import { Type } from 'class-transformer';
+
+import { ShipOrderByWithRelationInput } from './ship-order-by-with-relation.input';
 import { ShipScalarFieldEnum } from './ship-scalar-field.enum';
+import { ShipWhereInput } from './ship-where.input';
+import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @ArgsType()
 export class FindFirstShipArgs {

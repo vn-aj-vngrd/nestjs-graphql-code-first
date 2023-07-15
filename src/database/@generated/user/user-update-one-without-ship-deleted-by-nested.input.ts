@@ -1,12 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserCreateWithoutShipDeletedByInput } from './user-create-without-ship-deleted-by.input';
 import { Type } from 'class-transformer';
+
 import { UserCreateOrConnectWithoutShipDeletedByInput } from './user-create-or-connect-without-ship-deleted-by.input';
+import { UserCreateWithoutShipDeletedByInput } from './user-create-without-ship-deleted-by.input';
+import { UserUpdateToOneWithWhereWithoutShipDeletedByInput } from './user-update-to-one-with-where-without-ship-deleted-by.input';
 import { UserUpsertWithoutShipDeletedByInput } from './user-upsert-without-ship-deleted-by.input';
 import { UserWhereInput } from './user-where.input';
 import { UserWhereUniqueInput } from './user-where-unique.input';
-import { UserUpdateToOneWithWhereWithoutShipDeletedByInput } from './user-update-to-one-with-where-without-ship-deleted-by.input';
 
 @InputType()
 export class UserUpdateOneWithoutShipDeletedByNestedInput {

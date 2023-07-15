@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ShipCreateManyUpdatedByInput } from './ship-create-many-updated-by.input';
 import { Type } from 'class-transformer';
+
+import { ShipCreateManyUpdatedByInput } from './ship-create-many-updated-by.input';
 
 @InputType()
 export class ShipCreateManyUpdatedByInputEnvelope {

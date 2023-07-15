@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+
 import { ShipWhereInput } from './ship-where.input';
 
 @InputType()

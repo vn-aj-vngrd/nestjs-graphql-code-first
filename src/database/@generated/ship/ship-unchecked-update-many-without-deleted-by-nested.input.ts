@@ -1,14 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ShipCreateWithoutDeletedByInput } from './ship-create-without-deleted-by.input';
 import { Type } from 'class-transformer';
-import { ShipCreateOrConnectWithoutDeletedByInput } from './ship-create-or-connect-without-deleted-by.input';
-import { ShipUpsertWithWhereUniqueWithoutDeletedByInput } from './ship-upsert-with-where-unique-without-deleted-by.input';
+
 import { ShipCreateManyDeletedByInputEnvelope } from './ship-create-many-deleted-by-input-envelope.input';
-import { ShipWhereUniqueInput } from './ship-where-unique.input';
-import { ShipUpdateWithWhereUniqueWithoutDeletedByInput } from './ship-update-with-where-unique-without-deleted-by.input';
-import { ShipUpdateManyWithWhereWithoutDeletedByInput } from './ship-update-many-with-where-without-deleted-by.input';
+import { ShipCreateOrConnectWithoutDeletedByInput } from './ship-create-or-connect-without-deleted-by.input';
+import { ShipCreateWithoutDeletedByInput } from './ship-create-without-deleted-by.input';
 import { ShipScalarWhereInput } from './ship-scalar-where.input';
+import { ShipUpdateManyWithWhereWithoutDeletedByInput } from './ship-update-many-with-where-without-deleted-by.input';
+import { ShipUpdateWithWhereUniqueWithoutDeletedByInput } from './ship-update-with-where-unique-without-deleted-by.input';
+import { ShipUpsertWithWhereUniqueWithoutDeletedByInput } from './ship-upsert-with-where-unique-without-deleted-by.input';
+import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @InputType()
 export class ShipUncheckedUpdateManyWithoutDeletedByNestedInput {

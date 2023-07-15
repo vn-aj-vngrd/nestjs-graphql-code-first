@@ -1,8 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+
 import { ShipUncheckedCreateNestedManyWithoutCreatedByInput } from '../ship/ship-unchecked-create-nested-many-without-created-by.input';
-import { ShipUncheckedCreateNestedManyWithoutUpdatedByInput } from '../ship/ship-unchecked-create-nested-many-without-updated-by.input';
 import { ShipUncheckedCreateNestedManyWithoutDeletedByInput } from '../ship/ship-unchecked-create-nested-many-without-deleted-by.input';
+import { ShipUncheckedCreateNestedManyWithoutUpdatedByInput } from '../ship/ship-unchecked-create-nested-many-without-updated-by.input';
 
 @InputType()
 export class UserUncheckedCreateInput {

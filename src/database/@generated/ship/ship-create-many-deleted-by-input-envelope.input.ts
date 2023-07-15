@@ -1,7 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ShipCreateManyDeletedByInput } from './ship-create-many-deleted-by.input';
 import { Type } from 'class-transformer';
+
+import { ShipCreateManyDeletedByInput } from './ship-create-many-deleted-by.input';
 
 @InputType()
 export class ShipCreateManyDeletedByInputEnvelope {

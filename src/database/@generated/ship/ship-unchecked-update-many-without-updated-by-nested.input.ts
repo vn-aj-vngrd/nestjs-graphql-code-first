@@ -1,14 +1,15 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { ShipCreateWithoutUpdatedByInput } from './ship-create-without-updated-by.input';
 import { Type } from 'class-transformer';
-import { ShipCreateOrConnectWithoutUpdatedByInput } from './ship-create-or-connect-without-updated-by.input';
-import { ShipUpsertWithWhereUniqueWithoutUpdatedByInput } from './ship-upsert-with-where-unique-without-updated-by.input';
+
 import { ShipCreateManyUpdatedByInputEnvelope } from './ship-create-many-updated-by-input-envelope.input';
-import { ShipWhereUniqueInput } from './ship-where-unique.input';
-import { ShipUpdateWithWhereUniqueWithoutUpdatedByInput } from './ship-update-with-where-unique-without-updated-by.input';
-import { ShipUpdateManyWithWhereWithoutUpdatedByInput } from './ship-update-many-with-where-without-updated-by.input';
+import { ShipCreateOrConnectWithoutUpdatedByInput } from './ship-create-or-connect-without-updated-by.input';
+import { ShipCreateWithoutUpdatedByInput } from './ship-create-without-updated-by.input';
 import { ShipScalarWhereInput } from './ship-scalar-where.input';
+import { ShipUpdateManyWithWhereWithoutUpdatedByInput } from './ship-update-many-with-where-without-updated-by.input';
+import { ShipUpdateWithWhereUniqueWithoutUpdatedByInput } from './ship-update-with-where-unique-without-updated-by.input';
+import { ShipUpsertWithWhereUniqueWithoutUpdatedByInput } from './ship-upsert-with-where-unique-without-updated-by.input';
+import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @InputType()
 export class ShipUncheckedUpdateManyWithoutUpdatedByNestedInput {
