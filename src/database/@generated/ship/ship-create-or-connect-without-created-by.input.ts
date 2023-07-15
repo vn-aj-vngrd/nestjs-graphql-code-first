@@ -6,12 +6,11 @@ import { ShipCreateWithoutCreatedByInput } from './ship-create-without-created-b
 
 @InputType()
 export class ShipCreateOrConnectWithoutCreatedByInput {
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
-
-    @Field(() => ShipCreateWithoutCreatedByInput, {nullable:false})
-    @Type(() => ShipCreateWithoutCreatedByInput)
-    create!: ShipCreateWithoutCreatedByInput;
+  @Field(() => ShipCreateWithoutCreatedByInput, { nullable: false })
+  @Type(() => ShipCreateWithoutCreatedByInput)
+  create!: ShipCreateWithoutCreatedByInput;
 }

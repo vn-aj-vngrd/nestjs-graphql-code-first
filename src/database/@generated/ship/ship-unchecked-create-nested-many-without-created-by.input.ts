@@ -8,20 +8,19 @@ import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @InputType()
 export class ShipUncheckedCreateNestedManyWithoutCreatedByInput {
+  @Field(() => [ShipCreateWithoutCreatedByInput], { nullable: true })
+  @Type(() => ShipCreateWithoutCreatedByInput)
+  create?: Array<ShipCreateWithoutCreatedByInput>;
 
-    @Field(() => [ShipCreateWithoutCreatedByInput], {nullable:true})
-    @Type(() => ShipCreateWithoutCreatedByInput)
-    create?: Array<ShipCreateWithoutCreatedByInput>;
+  @Field(() => [ShipCreateOrConnectWithoutCreatedByInput], { nullable: true })
+  @Type(() => ShipCreateOrConnectWithoutCreatedByInput)
+  connectOrCreate?: Array<ShipCreateOrConnectWithoutCreatedByInput>;
 
-    @Field(() => [ShipCreateOrConnectWithoutCreatedByInput], {nullable:true})
-    @Type(() => ShipCreateOrConnectWithoutCreatedByInput)
-    connectOrCreate?: Array<ShipCreateOrConnectWithoutCreatedByInput>;
+  @Field(() => ShipCreateManyCreatedByInputEnvelope, { nullable: true })
+  @Type(() => ShipCreateManyCreatedByInputEnvelope)
+  createMany?: ShipCreateManyCreatedByInputEnvelope;
 
-    @Field(() => ShipCreateManyCreatedByInputEnvelope, {nullable:true})
-    @Type(() => ShipCreateManyCreatedByInputEnvelope)
-    createMany?: ShipCreateManyCreatedByInputEnvelope;
-
-    @Field(() => [ShipWhereUniqueInput], {nullable:true})
-    @Type(() => ShipWhereUniqueInput)
-    connect?: Array<ShipWhereUniqueInput>;
+  @Field(() => [ShipWhereUniqueInput], { nullable: true })
+  @Type(() => ShipWhereUniqueInput)
+  connect?: Array<ShipWhereUniqueInput>;
 }

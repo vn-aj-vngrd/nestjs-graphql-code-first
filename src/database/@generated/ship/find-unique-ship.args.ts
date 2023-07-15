@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class FindUniqueShipArgs {
-
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 }

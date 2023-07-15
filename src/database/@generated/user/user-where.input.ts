@@ -8,46 +8,45 @@ import { ShipListRelationFilter } from '../ship/ship-list-relation-filter.input'
 
 @InputType()
 export class UserWhereInput {
+  @Field(() => [UserWhereInput], { nullable: true })
+  AND?: Array<UserWhereInput>;
 
-    @Field(() => [UserWhereInput], {nullable:true})
-    AND?: Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], { nullable: true })
+  OR?: Array<UserWhereInput>;
 
-    @Field(() => [UserWhereInput], {nullable:true})
-    OR?: Array<UserWhereInput>;
+  @Field(() => [UserWhereInput], { nullable: true })
+  NOT?: Array<UserWhereInput>;
 
-    @Field(() => [UserWhereInput], {nullable:true})
-    NOT?: Array<UserWhereInput>;
+  @Field(() => StringFilter, { nullable: true })
+  id?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    id?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  username?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    username?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  password?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    password?: StringFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  createdAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  updatedAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  deletedAt?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    deletedAt?: DateTimeNullableFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  isDeleted?: BoolFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    isDeleted?: BoolFilter;
+  @Field(() => ShipListRelationFilter, { nullable: true })
+  shipCreatedBy?: ShipListRelationFilter;
 
-    @Field(() => ShipListRelationFilter, {nullable:true})
-    shipCreatedBy?: ShipListRelationFilter;
+  @Field(() => ShipListRelationFilter, { nullable: true })
+  shipUpdatedBy?: ShipListRelationFilter;
 
-    @Field(() => ShipListRelationFilter, {nullable:true})
-    shipUpdatedBy?: ShipListRelationFilter;
-
-    @Field(() => ShipListRelationFilter, {nullable:true})
-    shipDeletedBy?: ShipListRelationFilter;
+  @Field(() => ShipListRelationFilter, { nullable: true })
+  shipDeletedBy?: ShipListRelationFilter;
 }

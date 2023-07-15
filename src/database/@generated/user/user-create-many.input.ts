@@ -3,28 +3,27 @@ import { InputType } from '@nestjs/graphql';
 
 @InputType()
 export class UserCreateManyInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:true})
-    id?: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => String, { nullable: false })
+  username!: string;
 
-    @Field(() => String, {nullable:false})
-    username!: string;
+  @Field(() => String, { nullable: false })
+  password!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  deletedAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    deletedAt?: Date | string;
-
-    @Field(() => Boolean, {nullable:true})
-    isDeleted?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  isDeleted?: boolean;
 }

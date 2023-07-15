@@ -8,40 +8,39 @@ import { BoolFilter } from '../prisma/bool-filter.input';
 
 @InputType()
 export class ShipScalarWhereInput {
+  @Field(() => [ShipScalarWhereInput], { nullable: true })
+  AND?: Array<ShipScalarWhereInput>;
 
-    @Field(() => [ShipScalarWhereInput], {nullable:true})
-    AND?: Array<ShipScalarWhereInput>;
+  @Field(() => [ShipScalarWhereInput], { nullable: true })
+  OR?: Array<ShipScalarWhereInput>;
 
-    @Field(() => [ShipScalarWhereInput], {nullable:true})
-    OR?: Array<ShipScalarWhereInput>;
+  @Field(() => [ShipScalarWhereInput], { nullable: true })
+  NOT?: Array<ShipScalarWhereInput>;
 
-    @Field(() => [ShipScalarWhereInput], {nullable:true})
-    NOT?: Array<ShipScalarWhereInput>;
+  @Field(() => StringFilter, { nullable: true })
+  id?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    id?: StringFilter;
+  @Field(() => StringFilter, { nullable: true })
+  name?: StringFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  createdAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
+  @Field(() => DateTimeFilter, { nullable: true })
+  updatedAt?: DateTimeFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
+  @Field(() => DateTimeNullableFilter, { nullable: true })
+  deletedAt?: DateTimeNullableFilter;
 
-    @Field(() => DateTimeNullableFilter, {nullable:true})
-    deletedAt?: DateTimeNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  createdById?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    createdById?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  updatedById?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    updatedById?: StringNullableFilter;
+  @Field(() => StringNullableFilter, { nullable: true })
+  deletedById?: StringNullableFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    deletedById?: StringNullableFilter;
-
-    @Field(() => BoolFilter, {nullable:true})
-    isDeleted?: BoolFilter;
+  @Field(() => BoolFilter, { nullable: true })
+  isDeleted?: BoolFilter;
 }

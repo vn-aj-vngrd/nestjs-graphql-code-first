@@ -6,12 +6,11 @@ import { ShipWhereUniqueInput } from './ship-where-unique.input';
 
 @ArgsType()
 export class UpdateOneShipArgs {
+  @Field(() => ShipUpdateInput, { nullable: false })
+  @Type(() => ShipUpdateInput)
+  data!: ShipUpdateInput;
 
-    @Field(() => ShipUpdateInput, {nullable:false})
-    @Type(() => ShipUpdateInput)
-    data!: ShipUpdateInput;
-
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 }

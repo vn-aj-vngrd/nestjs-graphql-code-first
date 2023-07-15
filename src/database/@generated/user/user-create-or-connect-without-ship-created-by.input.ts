@@ -6,12 +6,11 @@ import { UserCreateWithoutShipCreatedByInput } from './user-create-without-ship-
 
 @InputType()
 export class UserCreateOrConnectWithoutShipCreatedByInput {
+  @Field(() => UserWhereUniqueInput, { nullable: false })
+  @Type(() => UserWhereUniqueInput)
+  where!: UserWhereUniqueInput;
 
-    @Field(() => UserWhereUniqueInput, {nullable:false})
-    @Type(() => UserWhereUniqueInput)
-    where!: UserWhereUniqueInput;
-
-    @Field(() => UserCreateWithoutShipCreatedByInput, {nullable:false})
-    @Type(() => UserCreateWithoutShipCreatedByInput)
-    create!: UserCreateWithoutShipCreatedByInput;
+  @Field(() => UserCreateWithoutShipCreatedByInput, { nullable: false })
+  @Type(() => UserCreateWithoutShipCreatedByInput)
+  create!: UserCreateWithoutShipCreatedByInput;
 }

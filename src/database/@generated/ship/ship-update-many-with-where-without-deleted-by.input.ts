@@ -6,12 +6,11 @@ import { ShipUpdateManyMutationInput } from './ship-update-many-mutation.input';
 
 @InputType()
 export class ShipUpdateManyWithWhereWithoutDeletedByInput {
+  @Field(() => ShipScalarWhereInput, { nullable: false })
+  @Type(() => ShipScalarWhereInput)
+  where!: ShipScalarWhereInput;
 
-    @Field(() => ShipScalarWhereInput, {nullable:false})
-    @Type(() => ShipScalarWhereInput)
-    where!: ShipScalarWhereInput;
-
-    @Field(() => ShipUpdateManyMutationInput, {nullable:false})
-    @Type(() => ShipUpdateManyMutationInput)
-    data!: ShipUpdateManyMutationInput;
+  @Field(() => ShipUpdateManyMutationInput, { nullable: false })
+  @Type(() => ShipUpdateManyMutationInput)
+  data!: ShipUpdateManyMutationInput;
 }

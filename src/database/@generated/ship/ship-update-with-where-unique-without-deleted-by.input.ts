@@ -6,12 +6,11 @@ import { ShipUpdateWithoutDeletedByInput } from './ship-update-without-deleted-b
 
 @InputType()
 export class ShipUpdateWithWhereUniqueWithoutDeletedByInput {
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
-
-    @Field(() => ShipUpdateWithoutDeletedByInput, {nullable:false})
-    @Type(() => ShipUpdateWithoutDeletedByInput)
-    data!: ShipUpdateWithoutDeletedByInput;
+  @Field(() => ShipUpdateWithoutDeletedByInput, { nullable: false })
+  @Type(() => ShipUpdateWithoutDeletedByInput)
+  data!: ShipUpdateWithoutDeletedByInput;
 }

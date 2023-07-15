@@ -10,32 +10,33 @@ import { UserUpdateToOneWithWhereWithoutShipCreatedByInput } from './user-update
 
 @InputType()
 export class UserUpdateOneWithoutShipCreatedByNestedInput {
+  @Field(() => UserCreateWithoutShipCreatedByInput, { nullable: true })
+  @Type(() => UserCreateWithoutShipCreatedByInput)
+  create?: UserCreateWithoutShipCreatedByInput;
 
-    @Field(() => UserCreateWithoutShipCreatedByInput, {nullable:true})
-    @Type(() => UserCreateWithoutShipCreatedByInput)
-    create?: UserCreateWithoutShipCreatedByInput;
+  @Field(() => UserCreateOrConnectWithoutShipCreatedByInput, { nullable: true })
+  @Type(() => UserCreateOrConnectWithoutShipCreatedByInput)
+  connectOrCreate?: UserCreateOrConnectWithoutShipCreatedByInput;
 
-    @Field(() => UserCreateOrConnectWithoutShipCreatedByInput, {nullable:true})
-    @Type(() => UserCreateOrConnectWithoutShipCreatedByInput)
-    connectOrCreate?: UserCreateOrConnectWithoutShipCreatedByInput;
+  @Field(() => UserUpsertWithoutShipCreatedByInput, { nullable: true })
+  @Type(() => UserUpsertWithoutShipCreatedByInput)
+  upsert?: UserUpsertWithoutShipCreatedByInput;
 
-    @Field(() => UserUpsertWithoutShipCreatedByInput, {nullable:true})
-    @Type(() => UserUpsertWithoutShipCreatedByInput)
-    upsert?: UserUpsertWithoutShipCreatedByInput;
+  @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
+  disconnect?: UserWhereInput;
 
-    @Field(() => UserWhereInput, {nullable:true})
-    @Type(() => UserWhereInput)
-    disconnect?: UserWhereInput;
+  @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
+  delete?: UserWhereInput;
 
-    @Field(() => UserWhereInput, {nullable:true})
-    @Type(() => UserWhereInput)
-    delete?: UserWhereInput;
+  @Field(() => UserWhereUniqueInput, { nullable: true })
+  @Type(() => UserWhereUniqueInput)
+  connect?: UserWhereUniqueInput;
 
-    @Field(() => UserWhereUniqueInput, {nullable:true})
-    @Type(() => UserWhereUniqueInput)
-    connect?: UserWhereUniqueInput;
-
-    @Field(() => UserUpdateToOneWithWhereWithoutShipCreatedByInput, {nullable:true})
-    @Type(() => UserUpdateToOneWithWhereWithoutShipCreatedByInput)
-    update?: UserUpdateToOneWithWhereWithoutShipCreatedByInput;
+  @Field(() => UserUpdateToOneWithWhereWithoutShipCreatedByInput, {
+    nullable: true,
+  })
+  @Type(() => UserUpdateToOneWithWhereWithoutShipCreatedByInput)
+  update?: UserUpdateToOneWithWhereWithoutShipCreatedByInput;
 }

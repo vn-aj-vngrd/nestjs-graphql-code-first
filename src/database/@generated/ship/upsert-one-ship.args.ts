@@ -7,16 +7,15 @@ import { ShipUpdateInput } from './ship-update.input';
 
 @ArgsType()
 export class UpsertOneShipArgs {
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
+  @Field(() => ShipCreateInput, { nullable: false })
+  @Type(() => ShipCreateInput)
+  create!: ShipCreateInput;
 
-    @Field(() => ShipCreateInput, {nullable:false})
-    @Type(() => ShipCreateInput)
-    create!: ShipCreateInput;
-
-    @Field(() => ShipUpdateInput, {nullable:false})
-    @Type(() => ShipUpdateInput)
-    update!: ShipUpdateInput;
+  @Field(() => ShipUpdateInput, { nullable: false })
+  @Type(() => ShipUpdateInput)
+  update!: ShipUpdateInput;
 }

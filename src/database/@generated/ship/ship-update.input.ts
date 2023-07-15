@@ -10,31 +10,30 @@ import { UserUpdateOneWithoutShipDeletedByNestedInput } from '../user/user-updat
 
 @InputType()
 export class ShipUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  isDeleted?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isDeleted?: BoolFieldUpdateOperationsInput;
+  @Field(() => UserUpdateOneWithoutShipCreatedByNestedInput, { nullable: true })
+  createdBy?: UserUpdateOneWithoutShipCreatedByNestedInput;
 
-    @Field(() => UserUpdateOneWithoutShipCreatedByNestedInput, {nullable:true})
-    createdBy?: UserUpdateOneWithoutShipCreatedByNestedInput;
+  @Field(() => UserUpdateOneWithoutShipUpdatedByNestedInput, { nullable: true })
+  updatedBy?: UserUpdateOneWithoutShipUpdatedByNestedInput;
 
-    @Field(() => UserUpdateOneWithoutShipUpdatedByNestedInput, {nullable:true})
-    updatedBy?: UserUpdateOneWithoutShipUpdatedByNestedInput;
-
-    @Field(() => UserUpdateOneWithoutShipDeletedByNestedInput, {nullable:true})
-    deletedBy?: UserUpdateOneWithoutShipDeletedByNestedInput;
+  @Field(() => UserUpdateOneWithoutShipDeletedByNestedInput, { nullable: true })
+  deletedBy?: UserUpdateOneWithoutShipDeletedByNestedInput;
 }

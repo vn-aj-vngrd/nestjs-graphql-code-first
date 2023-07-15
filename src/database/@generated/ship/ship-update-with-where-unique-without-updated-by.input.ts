@@ -6,12 +6,11 @@ import { ShipUpdateWithoutUpdatedByInput } from './ship-update-without-updated-b
 
 @InputType()
 export class ShipUpdateWithWhereUniqueWithoutUpdatedByInput {
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
-
-    @Field(() => ShipUpdateWithoutUpdatedByInput, {nullable:false})
-    @Type(() => ShipUpdateWithoutUpdatedByInput)
-    data!: ShipUpdateWithoutUpdatedByInput;
+  @Field(() => ShipUpdateWithoutUpdatedByInput, { nullable: false })
+  @Type(() => ShipUpdateWithoutUpdatedByInput)
+  data!: ShipUpdateWithoutUpdatedByInput;
 }

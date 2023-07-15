@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class CreateOneShipArgs {
-
-    @Field(() => ShipCreateInput, {nullable:false})
-    @Type(() => ShipCreateInput)
-    data!: ShipCreateInput;
+  @Field(() => ShipCreateInput, { nullable: false })
+  @Type(() => ShipCreateInput)
+  data!: ShipCreateInput;
 }

@@ -7,16 +7,15 @@ import { ShipCreateWithoutDeletedByInput } from './ship-create-without-deleted-b
 
 @InputType()
 export class ShipUpsertWithWhereUniqueWithoutDeletedByInput {
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
+  @Field(() => ShipUpdateWithoutDeletedByInput, { nullable: false })
+  @Type(() => ShipUpdateWithoutDeletedByInput)
+  update!: ShipUpdateWithoutDeletedByInput;
 
-    @Field(() => ShipUpdateWithoutDeletedByInput, {nullable:false})
-    @Type(() => ShipUpdateWithoutDeletedByInput)
-    update!: ShipUpdateWithoutDeletedByInput;
-
-    @Field(() => ShipCreateWithoutDeletedByInput, {nullable:false})
-    @Type(() => ShipCreateWithoutDeletedByInput)
-    create!: ShipCreateWithoutDeletedByInput;
+  @Field(() => ShipCreateWithoutDeletedByInput, { nullable: false })
+  @Type(() => ShipCreateWithoutDeletedByInput)
+  create!: ShipCreateWithoutDeletedByInput;
 }

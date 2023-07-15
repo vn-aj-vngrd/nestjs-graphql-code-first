@@ -5,8 +5,7 @@ import { Type } from 'class-transformer';
 
 @ArgsType()
 export class DeleteManyShipArgs {
-
-    @Field(() => ShipWhereInput, {nullable:true})
-    @Type(() => ShipWhereInput)
-    where?: ShipWhereInput;
+  @Field(() => ShipWhereInput, { nullable: true })
+  @Type(() => ShipWhereInput)
+  where?: ShipWhereInput;
 }

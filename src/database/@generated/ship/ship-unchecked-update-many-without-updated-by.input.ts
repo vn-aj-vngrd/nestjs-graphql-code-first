@@ -8,28 +8,27 @@ import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-oper
 
 @InputType()
 export class ShipUncheckedUpdateManyWithoutUpdatedByInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  createdById?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    createdById?: NullableStringFieldUpdateOperationsInput;
+  @Field(() => NullableStringFieldUpdateOperationsInput, { nullable: true })
+  deletedById?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    deletedById?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isDeleted?: BoolFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  isDeleted?: BoolFieldUpdateOperationsInput;
 }

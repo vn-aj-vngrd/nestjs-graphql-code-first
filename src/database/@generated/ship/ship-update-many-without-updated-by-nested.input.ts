@@ -12,48 +12,53 @@ import { ShipScalarWhereInput } from './ship-scalar-where.input';
 
 @InputType()
 export class ShipUpdateManyWithoutUpdatedByNestedInput {
+  @Field(() => [ShipCreateWithoutUpdatedByInput], { nullable: true })
+  @Type(() => ShipCreateWithoutUpdatedByInput)
+  create?: Array<ShipCreateWithoutUpdatedByInput>;
 
-    @Field(() => [ShipCreateWithoutUpdatedByInput], {nullable:true})
-    @Type(() => ShipCreateWithoutUpdatedByInput)
-    create?: Array<ShipCreateWithoutUpdatedByInput>;
+  @Field(() => [ShipCreateOrConnectWithoutUpdatedByInput], { nullable: true })
+  @Type(() => ShipCreateOrConnectWithoutUpdatedByInput)
+  connectOrCreate?: Array<ShipCreateOrConnectWithoutUpdatedByInput>;
 
-    @Field(() => [ShipCreateOrConnectWithoutUpdatedByInput], {nullable:true})
-    @Type(() => ShipCreateOrConnectWithoutUpdatedByInput)
-    connectOrCreate?: Array<ShipCreateOrConnectWithoutUpdatedByInput>;
+  @Field(() => [ShipUpsertWithWhereUniqueWithoutUpdatedByInput], {
+    nullable: true,
+  })
+  @Type(() => ShipUpsertWithWhereUniqueWithoutUpdatedByInput)
+  upsert?: Array<ShipUpsertWithWhereUniqueWithoutUpdatedByInput>;
 
-    @Field(() => [ShipUpsertWithWhereUniqueWithoutUpdatedByInput], {nullable:true})
-    @Type(() => ShipUpsertWithWhereUniqueWithoutUpdatedByInput)
-    upsert?: Array<ShipUpsertWithWhereUniqueWithoutUpdatedByInput>;
+  @Field(() => ShipCreateManyUpdatedByInputEnvelope, { nullable: true })
+  @Type(() => ShipCreateManyUpdatedByInputEnvelope)
+  createMany?: ShipCreateManyUpdatedByInputEnvelope;
 
-    @Field(() => ShipCreateManyUpdatedByInputEnvelope, {nullable:true})
-    @Type(() => ShipCreateManyUpdatedByInputEnvelope)
-    createMany?: ShipCreateManyUpdatedByInputEnvelope;
+  @Field(() => [ShipWhereUniqueInput], { nullable: true })
+  @Type(() => ShipWhereUniqueInput)
+  set?: Array<ShipWhereUniqueInput>;
 
-    @Field(() => [ShipWhereUniqueInput], {nullable:true})
-    @Type(() => ShipWhereUniqueInput)
-    set?: Array<ShipWhereUniqueInput>;
+  @Field(() => [ShipWhereUniqueInput], { nullable: true })
+  @Type(() => ShipWhereUniqueInput)
+  disconnect?: Array<ShipWhereUniqueInput>;
 
-    @Field(() => [ShipWhereUniqueInput], {nullable:true})
-    @Type(() => ShipWhereUniqueInput)
-    disconnect?: Array<ShipWhereUniqueInput>;
+  @Field(() => [ShipWhereUniqueInput], { nullable: true })
+  @Type(() => ShipWhereUniqueInput)
+  delete?: Array<ShipWhereUniqueInput>;
 
-    @Field(() => [ShipWhereUniqueInput], {nullable:true})
-    @Type(() => ShipWhereUniqueInput)
-    delete?: Array<ShipWhereUniqueInput>;
+  @Field(() => [ShipWhereUniqueInput], { nullable: true })
+  @Type(() => ShipWhereUniqueInput)
+  connect?: Array<ShipWhereUniqueInput>;
 
-    @Field(() => [ShipWhereUniqueInput], {nullable:true})
-    @Type(() => ShipWhereUniqueInput)
-    connect?: Array<ShipWhereUniqueInput>;
+  @Field(() => [ShipUpdateWithWhereUniqueWithoutUpdatedByInput], {
+    nullable: true,
+  })
+  @Type(() => ShipUpdateWithWhereUniqueWithoutUpdatedByInput)
+  update?: Array<ShipUpdateWithWhereUniqueWithoutUpdatedByInput>;
 
-    @Field(() => [ShipUpdateWithWhereUniqueWithoutUpdatedByInput], {nullable:true})
-    @Type(() => ShipUpdateWithWhereUniqueWithoutUpdatedByInput)
-    update?: Array<ShipUpdateWithWhereUniqueWithoutUpdatedByInput>;
+  @Field(() => [ShipUpdateManyWithWhereWithoutUpdatedByInput], {
+    nullable: true,
+  })
+  @Type(() => ShipUpdateManyWithWhereWithoutUpdatedByInput)
+  updateMany?: Array<ShipUpdateManyWithWhereWithoutUpdatedByInput>;
 
-    @Field(() => [ShipUpdateManyWithWhereWithoutUpdatedByInput], {nullable:true})
-    @Type(() => ShipUpdateManyWithWhereWithoutUpdatedByInput)
-    updateMany?: Array<ShipUpdateManyWithWhereWithoutUpdatedByInput>;
-
-    @Field(() => [ShipScalarWhereInput], {nullable:true})
-    @Type(() => ShipScalarWhereInput)
-    deleteMany?: Array<ShipScalarWhereInput>;
+  @Field(() => [ShipScalarWhereInput], { nullable: true })
+  @Type(() => ShipScalarWhereInput)
+  deleteMany?: Array<ShipScalarWhereInput>;
 }

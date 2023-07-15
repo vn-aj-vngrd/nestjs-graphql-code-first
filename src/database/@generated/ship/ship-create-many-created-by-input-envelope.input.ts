@@ -5,11 +5,10 @@ import { Type } from 'class-transformer';
 
 @InputType()
 export class ShipCreateManyCreatedByInputEnvelope {
+  @Field(() => [ShipCreateManyCreatedByInput], { nullable: false })
+  @Type(() => ShipCreateManyCreatedByInput)
+  data!: Array<ShipCreateManyCreatedByInput>;
 
-    @Field(() => [ShipCreateManyCreatedByInput], {nullable:false})
-    @Type(() => ShipCreateManyCreatedByInput)
-    data!: Array<ShipCreateManyCreatedByInput>;
-
-    @Field(() => Boolean, {nullable:true})
-    skipDuplicates?: boolean;
+  @Field(() => Boolean, { nullable: true })
+  skipDuplicates?: boolean;
 }

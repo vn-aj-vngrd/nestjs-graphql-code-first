@@ -6,12 +6,11 @@ import { UserUpdateWithoutShipUpdatedByInput } from './user-update-without-ship-
 
 @InputType()
 export class UserUpdateToOneWithWhereWithoutShipUpdatedByInput {
+  @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
+  where?: UserWhereInput;
 
-    @Field(() => UserWhereInput, {nullable:true})
-    @Type(() => UserWhereInput)
-    where?: UserWhereInput;
-
-    @Field(() => UserUpdateWithoutShipUpdatedByInput, {nullable:false})
-    @Type(() => UserUpdateWithoutShipUpdatedByInput)
-    data!: UserUpdateWithoutShipUpdatedByInput;
+  @Field(() => UserUpdateWithoutShipUpdatedByInput, { nullable: false })
+  @Type(() => UserUpdateWithoutShipUpdatedByInput)
+  data!: UserUpdateWithoutShipUpdatedByInput;
 }

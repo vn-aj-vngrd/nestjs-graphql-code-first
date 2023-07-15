@@ -7,28 +7,27 @@ import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-oper
 
 @InputType()
 export class UserUncheckedUpdateManyInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  username?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    username?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    password?: StringFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
-
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isDeleted?: BoolFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  isDeleted?: BoolFieldUpdateOperationsInput;
 }

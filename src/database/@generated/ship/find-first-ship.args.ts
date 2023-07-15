@@ -9,23 +9,22 @@ import { ShipScalarFieldEnum } from './ship-scalar-field.enum';
 
 @ArgsType()
 export class FindFirstShipArgs {
+  @Field(() => ShipWhereInput, { nullable: true })
+  @Type(() => ShipWhereInput)
+  where?: ShipWhereInput;
 
-    @Field(() => ShipWhereInput, {nullable:true})
-    @Type(() => ShipWhereInput)
-    where?: ShipWhereInput;
+  @Field(() => [ShipOrderByWithRelationInput], { nullable: true })
+  orderBy?: Array<ShipOrderByWithRelationInput>;
 
-    @Field(() => [ShipOrderByWithRelationInput], {nullable:true})
-    orderBy?: Array<ShipOrderByWithRelationInput>;
+  @Field(() => ShipWhereUniqueInput, { nullable: true })
+  cursor?: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:true})
-    cursor?: ShipWhereUniqueInput;
+  @Field(() => Int, { nullable: true })
+  take?: number;
 
-    @Field(() => Int, {nullable:true})
-    take?: number;
+  @Field(() => Int, { nullable: true })
+  skip?: number;
 
-    @Field(() => Int, {nullable:true})
-    skip?: number;
-
-    @Field(() => [ShipScalarFieldEnum], {nullable:true})
-    distinct?: Array<keyof typeof ShipScalarFieldEnum>;
+  @Field(() => [ShipScalarFieldEnum], { nullable: true })
+  distinct?: Array<keyof typeof ShipScalarFieldEnum>;
 }

@@ -7,16 +7,15 @@ import { UserWhereInput } from './user-where.input';
 
 @InputType()
 export class UserUpsertWithoutShipDeletedByInput {
+  @Field(() => UserUpdateWithoutShipDeletedByInput, { nullable: false })
+  @Type(() => UserUpdateWithoutShipDeletedByInput)
+  update!: UserUpdateWithoutShipDeletedByInput;
 
-    @Field(() => UserUpdateWithoutShipDeletedByInput, {nullable:false})
-    @Type(() => UserUpdateWithoutShipDeletedByInput)
-    update!: UserUpdateWithoutShipDeletedByInput;
+  @Field(() => UserCreateWithoutShipDeletedByInput, { nullable: false })
+  @Type(() => UserCreateWithoutShipDeletedByInput)
+  create!: UserCreateWithoutShipDeletedByInput;
 
-    @Field(() => UserCreateWithoutShipDeletedByInput, {nullable:false})
-    @Type(() => UserCreateWithoutShipDeletedByInput)
-    create!: UserCreateWithoutShipDeletedByInput;
-
-    @Field(() => UserWhereInput, {nullable:true})
-    @Type(() => UserWhereInput)
-    where?: UserWhereInput;
+  @Field(() => UserWhereInput, { nullable: true })
+  @Type(() => UserWhereInput)
+  where?: UserWhereInput;
 }

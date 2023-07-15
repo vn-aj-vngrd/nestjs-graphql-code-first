@@ -7,16 +7,15 @@ import { ShipCreateWithoutUpdatedByInput } from './ship-create-without-updated-b
 
 @InputType()
 export class ShipUpsertWithWhereUniqueWithoutUpdatedByInput {
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
+  @Field(() => ShipUpdateWithoutUpdatedByInput, { nullable: false })
+  @Type(() => ShipUpdateWithoutUpdatedByInput)
+  update!: ShipUpdateWithoutUpdatedByInput;
 
-    @Field(() => ShipUpdateWithoutUpdatedByInput, {nullable:false})
-    @Type(() => ShipUpdateWithoutUpdatedByInput)
-    update!: ShipUpdateWithoutUpdatedByInput;
-
-    @Field(() => ShipCreateWithoutUpdatedByInput, {nullable:false})
-    @Type(() => ShipCreateWithoutUpdatedByInput)
-    create!: ShipCreateWithoutUpdatedByInput;
+  @Field(() => ShipCreateWithoutUpdatedByInput, { nullable: false })
+  @Type(() => ShipCreateWithoutUpdatedByInput)
+  create!: ShipCreateWithoutUpdatedByInput;
 }

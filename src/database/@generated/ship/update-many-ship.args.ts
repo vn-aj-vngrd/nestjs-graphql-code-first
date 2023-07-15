@@ -6,12 +6,11 @@ import { ShipWhereInput } from './ship-where.input';
 
 @ArgsType()
 export class UpdateManyShipArgs {
+  @Field(() => ShipUpdateManyMutationInput, { nullable: false })
+  @Type(() => ShipUpdateManyMutationInput)
+  data!: ShipUpdateManyMutationInput;
 
-    @Field(() => ShipUpdateManyMutationInput, {nullable:false})
-    @Type(() => ShipUpdateManyMutationInput)
-    data!: ShipUpdateManyMutationInput;
-
-    @Field(() => ShipWhereInput, {nullable:true})
-    @Type(() => ShipWhereInput)
-    where?: ShipWhereInput;
+  @Field(() => ShipWhereInput, { nullable: true })
+  @Type(() => ShipWhereInput)
+  where?: ShipWhereInput;
 }

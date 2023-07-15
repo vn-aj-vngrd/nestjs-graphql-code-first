@@ -6,12 +6,11 @@ import { ShipCreateWithoutDeletedByInput } from './ship-create-without-deleted-b
 
 @InputType()
 export class ShipCreateOrConnectWithoutDeletedByInput {
+  @Field(() => ShipWhereUniqueInput, { nullable: false })
+  @Type(() => ShipWhereUniqueInput)
+  where!: ShipWhereUniqueInput;
 
-    @Field(() => ShipWhereUniqueInput, {nullable:false})
-    @Type(() => ShipWhereUniqueInput)
-    where!: ShipWhereUniqueInput;
-
-    @Field(() => ShipCreateWithoutDeletedByInput, {nullable:false})
-    @Type(() => ShipCreateWithoutDeletedByInput)
-    create!: ShipCreateWithoutDeletedByInput;
+  @Field(() => ShipCreateWithoutDeletedByInput, { nullable: false })
+  @Type(() => ShipCreateWithoutDeletedByInput)
+  create!: ShipCreateWithoutDeletedByInput;
 }

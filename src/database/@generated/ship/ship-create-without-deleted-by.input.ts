@@ -5,28 +5,27 @@ import { UserCreateNestedOneWithoutShipUpdatedByInput } from '../user/user-creat
 
 @InputType()
 export class ShipCreateWithoutDeletedByInput {
+  @Field(() => String, { nullable: true })
+  id?: string;
 
-    @Field(() => String, {nullable:true})
-    id?: string;
+  @Field(() => String, { nullable: false })
+  name!: string;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  deletedAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    deletedAt?: Date | string;
+  @Field(() => Boolean, { nullable: true })
+  isDeleted?: boolean;
 
-    @Field(() => Boolean, {nullable:true})
-    isDeleted?: boolean;
+  @Field(() => UserCreateNestedOneWithoutShipCreatedByInput, { nullable: true })
+  createdBy?: UserCreateNestedOneWithoutShipCreatedByInput;
 
-    @Field(() => UserCreateNestedOneWithoutShipCreatedByInput, {nullable:true})
-    createdBy?: UserCreateNestedOneWithoutShipCreatedByInput;
-
-    @Field(() => UserCreateNestedOneWithoutShipUpdatedByInput, {nullable:true})
-    updatedBy?: UserCreateNestedOneWithoutShipUpdatedByInput;
+  @Field(() => UserCreateNestedOneWithoutShipUpdatedByInput, { nullable: true })
+  updatedBy?: UserCreateNestedOneWithoutShipUpdatedByInput;
 }

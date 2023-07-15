@@ -10,37 +10,36 @@ import { ShipUpdateManyWithoutDeletedByNestedInput } from '../ship/ship-update-m
 
 @InputType()
 export class UserUpdateInput {
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  id?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    id?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  name?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    name?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  username?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    username?: StringFieldUpdateOperationsInput;
+  @Field(() => StringFieldUpdateOperationsInput, { nullable: true })
+  password?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    password?: StringFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => DateTimeFieldUpdateOperationsInput, { nullable: true })
+  updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    updatedAt?: DateTimeFieldUpdateOperationsInput;
+  @Field(() => NullableDateTimeFieldUpdateOperationsInput, { nullable: true })
+  deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput;
+  @Field(() => BoolFieldUpdateOperationsInput, { nullable: true })
+  isDeleted?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isDeleted?: BoolFieldUpdateOperationsInput;
+  @Field(() => ShipUpdateManyWithoutCreatedByNestedInput, { nullable: true })
+  shipCreatedBy?: ShipUpdateManyWithoutCreatedByNestedInput;
 
-    @Field(() => ShipUpdateManyWithoutCreatedByNestedInput, {nullable:true})
-    shipCreatedBy?: ShipUpdateManyWithoutCreatedByNestedInput;
+  @Field(() => ShipUpdateManyWithoutUpdatedByNestedInput, { nullable: true })
+  shipUpdatedBy?: ShipUpdateManyWithoutUpdatedByNestedInput;
 
-    @Field(() => ShipUpdateManyWithoutUpdatedByNestedInput, {nullable:true})
-    shipUpdatedBy?: ShipUpdateManyWithoutUpdatedByNestedInput;
-
-    @Field(() => ShipUpdateManyWithoutDeletedByNestedInput, {nullable:true})
-    shipDeletedBy?: ShipUpdateManyWithoutDeletedByNestedInput;
+  @Field(() => ShipUpdateManyWithoutDeletedByNestedInput, { nullable: true })
+  shipDeletedBy?: ShipUpdateManyWithoutDeletedByNestedInput;
 }
