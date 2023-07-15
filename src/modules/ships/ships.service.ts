@@ -4,8 +4,9 @@ import { PrismaService } from 'nestjs-prisma';
 import { ParamArgs } from 'src/common/args';
 import { transformOrderBy } from 'src/common/utils/transform-orderBy';
 import { transformWhere } from 'src/common/utils/transform-where';
-import { ShipCreateInput } from 'src/database/@generated/ship/ship-create.input';
-import { ShipUpdateInput } from 'src/database/@generated/ship/ship-update.input';
+import { ShipUncheckedCreateInput } from 'src/database/@generated/ship/ship-unchecked-create.input';
+import { ShipUncheckedUpdateInput } from 'src/database/@generated/ship/ship-unchecked-update.input';
+import { ShipWhereUniqueInput } from 'src/database/@generated/ship/ship-where-unique.input';
 
 import { ShipWithUser } from './ships.types';
 
@@ -57,8 +58,6 @@ export class ShipsService {
       orderBy = transformOrderBy(field, direction);
     }
 
-    console.log(where);
-
     return this.prisma.ship.findMany({
       where,
       orderBy,
@@ -72,28 +71,9 @@ export class ShipsService {
     });
   }
 
-  async create(input: ShipCreateInput): Promise<ShipWithUser> {
-    const { createdBy, updatedBy, deletedBy, ...data } = input;
-
+  async create(input: ShipUncheckedCreateInput): Promise<ShipWithUser> {
     return this.prisma.ship.create({
-      data: {
-        ...data,
-        createdBy: {
-          connect: {
-            id: createdBy.connect.id,
-          },
-        },
-        updatedBy: {
-          connect: {
-            id: updatedBy.connect.id,
-          },
-        },
-        deletedBy: {
-          connect: {
-            id: deletedBy.connect.id,
-          },
-        },
-      },
+      data: input,
       include: {
         createdBy: true,
         updatedBy: true,
@@ -102,31 +82,17 @@ export class ShipsService {
     });
   }
 
-  async update(params: ShipUpdateInput): Promise<ShipWithUser> {
-    const { id, createdBy, updatedBy, deletedBy, ...data } = params;
+  async update(params: {
+    id: ShipWhereUniqueInput['id'];
+    input: ShipUncheckedUpdateInput;
+  }): Promise<ShipWithUser> {
+    const { id, input } = params;
 
     return this.prisma.ship.update({
       where: {
-        id: id as ShipUpdateInput['id']['set'],
+        id,
       },
-      data: {
-        ...data,
-        createdBy: {
-          connect: {
-            id: createdBy.connect.id,
-          },
-        },
-        updatedBy: {
-          connect: {
-            id: updatedBy.connect.id,
-          },
-        },
-        deletedBy: {
-          connect: {
-            id: deletedBy.connect.id,
-          },
-        },
-      },
+      data: input,
       include: {
         createdBy: true,
         updatedBy: true,
@@ -136,7 +102,7 @@ export class ShipsService {
   }
 
   async delete(id: string): Promise<boolean> {
-    const response = await this.prisma.ship.delete({
+    return this.prisma.ship.delete({
       where: {
         id,
       },
@@ -145,8 +111,8 @@ export class ShipsService {
         updatedBy: true,
         deletedBy: true,
       },
-    });
-
-    return response ? true : false;
+    })
+      ? true
+      : false;
   }
 }

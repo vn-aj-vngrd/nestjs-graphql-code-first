@@ -4,7 +4,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { ParamArgs } from 'src/common/args';
 import { Ship } from 'src/database/@generated/ship/ship.model';
 import { ShipCreateInput } from 'src/database/@generated/ship/ship-create.input';
-import { ShipUpdateInput } from 'src/database/@generated/ship/ship-update.input';
+import { ShipUncheckedUpdateInput } from 'src/database/@generated/ship/ship-unchecked-update.input';
 
 import { ShipsService } from './ships.service';
 import { ShipWithUser } from './ships.types';
@@ -30,28 +30,33 @@ export class ShipsResolver {
   }
 
   @Mutation(() => Ship)
-  async addShip(@Args('input') input: ShipCreateInput): Promise<ShipWithUser> {
+  async createShip(
+    @Args('input') input: ShipCreateInput,
+  ): Promise<ShipWithUser> {
     const ship = await this.shipsService.create(input);
 
-    pubSub.publish('shipAdded', { shipAdded: ship });
+    pubSub.publish('shipCreated', { shipCreated: ship });
     return ship;
   }
 
   @Mutation(() => Ship)
-  async editShip(@Args('input') input: ShipUpdateInput): Promise<ShipWithUser> {
-    const ship = await this.shipsService.update(input);
+  async updateShip(
+    @Args('id') id: string,
+    @Args('input') input: ShipUncheckedUpdateInput,
+  ): Promise<ShipWithUser> {
+    const ship = await this.shipsService.update({ id, input });
 
-    pubSub.publish('shipEdited', { shipEdited: ship });
+    pubSub.publish('shipUpdated', { shipUpdated: ship });
     return ship;
   }
 
   @Mutation(() => Boolean)
-  async removeShip(@Args('id') id: string) {
+  async deleteShip(@Args('id') id: string) {
     return this.shipsService.delete(id);
   }
 
   @Subscription(() => Ship)
-  shipAdded() {
-    return pubSub.asyncIterator(['shipAdded', 'shipEdited']);
+  shipCreated() {
+    return pubSub.asyncIterator(['shipCreated', 'shipUpdated']);
   }
 }
