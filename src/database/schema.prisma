@@ -7,20 +7,45 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator nestgraphql {
+  provider               = "node node_modules/prisma-nestjs-graphql"
+  output                 = "./@generated"
+  fields_Validator_from  = "class-validator"
+  fields_Validator_input = true
+}
+
 model User {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  username    String
-  tweets      Tweet[]
+  id       String @id @default(cuid())
+  name     String
+  username String
+  password String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  isDeleted Boolean @default(false)
+
+  shipCreatedBy Ship[] @relation("shipCreatedBy")
+  shipUpdatedBy Ship[] @relation("shipUpdatedBy")
+  shipDeletedBy Ship[] @relation("shipDeletedBy")
 }
 
-model Tweet {
-  id          Int       @id @default(autoincrement())
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  content     String
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
-}
+model Ship {
+  id   String @id @default(cuid())
+  name String
 
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  createdById String?
+  updatedById String?
+  deletedById String?
+
+  isDeleted Boolean @default(false)
+
+  createdBy User? @relation("shipCreatedBy", fields: [createdById], references: [id])
+  updatedBy User? @relation("shipUpdatedBy", fields: [updatedById], references: [id])
+  deletedBy User? @relation("shipDeletedBy", fields: [deletedById], references: [id])
+}
