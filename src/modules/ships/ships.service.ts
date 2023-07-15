@@ -102,7 +102,7 @@ export class ShipsService {
   }
 
   async delete(id: string): Promise<boolean> {
-    return this.prisma.ship.delete({
+    const data = await this.prisma.ship.delete({
       where: {
         id,
       },
@@ -111,8 +111,8 @@ export class ShipsService {
         updatedBy: true,
         deletedBy: true,
       },
-    })
-      ? true
-      : false;
+    });
+
+    return data ? true : false;
   }
 }
