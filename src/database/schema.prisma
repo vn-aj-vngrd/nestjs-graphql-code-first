@@ -14,11 +14,18 @@ generator nestgraphql {
   fields_Validator_input = true
 }
 
+enum Permission {
+  ADMIN
+  USER
+  GUEST
+}
+
 model User {
-  id       String @id @default(cuid())
-  name     String
-  username String
-  password String
+  id         String     @id @default(cuid())
+  name       String
+  username   String
+  password   String
+  permission Permission @default(GUEST)
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Ship } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
+import { ShipUncheckedCreateInput } from 'src/@generated/ship/ship-unchecked-create.input';
+import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-update.input';
+import { ShipWhereUniqueInput } from 'src/@generated/ship/ship-where-unique.input';
 import { ParamArgs } from 'src/common/args';
 import { transformOrderBy } from 'src/common/utils/transform-orderBy';
 import { transformWhere } from 'src/common/utils/transform-where';
-import { ShipUncheckedCreateInput } from 'src/database/@generated/ship/ship-unchecked-create.input';
-import { ShipUncheckedUpdateInput } from 'src/database/@generated/ship/ship-unchecked-update.input';
-import { ShipWhereUniqueInput } from 'src/database/@generated/ship/ship-where-unique.input';
 
 import { ShipWithUser } from './ships.types';
 

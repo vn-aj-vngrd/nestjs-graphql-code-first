@@ -35,4 +35,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # Prisma Generate
-/src/database/@generated
+/src/@generated

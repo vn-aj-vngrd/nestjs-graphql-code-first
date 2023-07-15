@@ -1,10 +1,10 @@
 import { NotFoundException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
+import { Ship } from 'src/@generated/ship/ship.model';
+import { ShipCreateInput } from 'src/@generated/ship/ship-create.input';
+import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-update.input';
 import { ParamArgs } from 'src/common/args';
-import { Ship } from 'src/database/@generated/ship/ship.model';
-import { ShipCreateInput } from 'src/database/@generated/ship/ship-create.input';
-import { ShipUncheckedUpdateInput } from 'src/database/@generated/ship/ship-unchecked-update.input';
 
 import { ShipsService } from './ships.service';
 import { ShipWithUser } from './ships.types';
