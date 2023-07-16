@@ -1,13 +1,108 @@
+import 'reflect-metadata';
+
+import compression from '@fastify/compress';
+import fastifyCookie from '@fastify/cookie';
+import fastifyCsrf from '@fastify/csrf-protection';
+import helmet from '@fastify/helmet';
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
+import { contentParser } from 'fastify-multer';
+import { WinstonModule } from 'nest-winston';
 import { PrismaClientExceptionFilter } from 'nestjs-prisma';
+import { join } from 'path';
+import { format, transports } from 'winston';
+import * as DailyRotateFile from 'winston-daily-rotate-file';
 
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    new FastifyAdapter({ logger: false }),
+    {
+      logger: WinstonModule.createLogger({
+        transports: [
+          // file on daily rotation (error only)
+          new DailyRotateFile({
+            // %DATE will be replaced by the current date
+            filename: `logs/%DATE%-error.log`,
+            level: 'error',
+            format: format.combine(format.timestamp(), format.json()),
+            datePattern: 'YYYY-MM-DD',
+            zippedArchive: false, // don't want to zip our logs
+            maxFiles: '30d', // will keep log until they are older than 30 days
+          }),
+          // same for all levels
+          new DailyRotateFile({
+            filename: `logs/%DATE%-combined.log`,
+            format: format.combine(format.timestamp(), format.json()),
+            datePattern: 'YYYY-MM-DD',
+            zippedArchive: false,
+            maxFiles: '30d',
+          }),
+          new transports.Console({
+            format: format.combine(
+              format.cli(),
+              format.splat(),
+              format.timestamp(),
+              format.printf((info) => {
+                return `${info.timestamp} ${info.level}: ${info.message}`;
+              }),
+            ),
+          }),
+        ],
+      }),
+    },
+  );
 
+  // CORS
+  app.enableCors({
+    origin: [process.env.CORS_URL],
+    credentials: true,
+  });
+
+  // COOKIE
+  await app.register(fastifyCookie, {
+    secret: process.env.COOKIE_SECRET,
+  });
+
+  // CSRF
+  await app.register(fastifyCsrf);
+
+  // HELMET
+  await app.register(helmet, {
+    crossOriginResourcePolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [`'self'`],
+        styleSrc: [`'self'`, `'unsafe-inline'`],
+        imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+        scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+      },
+    },
+  });
+
+  // STATIC FILES
+  app.register(contentParser);
+  app.useStaticAssets({
+    root: join(__dirname, '..', '..', 'public'),
+    prefix: '/public',
+  });
+
+  // VALIDATION
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  // COMPRESSION
+  await app.register(compression, {
+    encodings: ['gzip', 'deflate'],
+    threshold: 500,
+  });
+
+  // PRISMA EXCEPTION FILTER
   const { httpAdapter } = app.get(HttpAdapterHost);
   app.useGlobalFilters(
     new PrismaClientExceptionFilter(httpAdapter, {

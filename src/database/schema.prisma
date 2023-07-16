@@ -9,7 +9,7 @@ generator client {
 
 generator nestgraphql {
   provider               = "node node_modules/prisma-nestjs-graphql"
-  output                 = "./@generated"
+  output                 = "../@generated"
   fields_Validator_from  = "class-validator"
   fields_Validator_input = true
 }
@@ -21,17 +21,19 @@ enum Permission {
 }
 
 model User {
-  id         String     @id @default(cuid())
-  name       String
-  username   String
-  password   String
-  permission Permission @default(GUEST)
+  id           String       @id @default(cuid())
+  name         String
+  username     String
+  password     String
+  permissions  Permission[] @default([GUEST])
+  refreshToken String?
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  isDeleted Boolean @default(false)
+  isDeactivated Boolean @default(false)
+  isDeleted     Boolean @default(false)
 
   shipCreatedBy Ship[] @relation("shipCreatedBy")
   shipUpdatedBy Ship[] @relation("shipUpdatedBy")

@@ -8,7 +8,7 @@ import { ParamArgs } from 'src/common/args';
 import { transformOrderBy } from 'src/common/utils/transform-orderBy';
 import { transformWhere } from 'src/common/utils/transform-where';
 
-import { ShipWithUser } from './ships.types';
+import { ShipWithUser } from './ships.type';
 
 @Injectable()
 export class ShipsService {

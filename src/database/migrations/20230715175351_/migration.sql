@@ -1,9 +1,14 @@
+-- CreateEnum
+CREATE TYPE "Permission" AS ENUM ('ADMIN', 'USER', 'GUEST');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "username" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "permissions" "Permission"[] DEFAULT ARRAY['GUEST']::"Permission"[],
+    "refreshToken" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),

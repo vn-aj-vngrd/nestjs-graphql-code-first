@@ -7,7 +7,7 @@ import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-upd
 import { ParamArgs } from 'src/common/args';
 
 import { ShipsService } from './ships.service';
-import { ShipWithUser } from './ships.types';
+import { ShipWithUser } from './ships.type';
 
 const pubSub = new PubSub();
 

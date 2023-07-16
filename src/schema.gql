@@ -42,11 +42,12 @@ input DateTimeNullableFilter {
   notIn: [DateTime!]
 }
 
-input EnumPermissionFilter {
-  equals: Permission
-  in: [Permission!]
-  not: NestedEnumPermissionFilter
-  notIn: [Permission!]
+input EnumPermissionNullableListFilter {
+  equals: [Permission!]
+  has: Permission
+  hasEvery: [Permission!]
+  hasSome: [Permission!]
+  isEmpty: Boolean
 }
 
 input Filter {
@@ -86,13 +87,6 @@ input NestedDateTimeNullableFilter {
   lte: DateTime
   not: NestedDateTimeNullableFilter
   notIn: [DateTime!]
-}
-
-input NestedEnumPermissionFilter {
-  equals: Permission
-  in: [Permission!]
-  not: NestedEnumPermissionFilter
-  notIn: [Permission!]
 }
 
 input NestedStringFilter {
@@ -398,10 +392,12 @@ type User {
   createdAt: DateTime!
   deletedAt: DateTime
   id: ID!
+  isDeactivated: Boolean!
   isDeleted: Boolean!
   name: String!
   password: String!
-  permission: Permission!
+  permissions: [Permission!]
+  refreshToken: String
   shipCreatedBy: [Ship!]
   shipDeletedBy: [Ship!]
   shipUpdatedBy: [Ship!]
@@ -452,10 +448,12 @@ input UserCreateWithoutShipCreatedByInput {
   createdAt: DateTime
   deletedAt: DateTime
   id: String
+  isDeactivated: Boolean
   isDeleted: Boolean
   name: String!
   password: String!
-  permission: Permission
+  permissions: UserCreatepermissionsInput
+  refreshToken: String
   shipDeletedBy: ShipCreateNestedManyWithoutDeletedByInput
   shipUpdatedBy: ShipCreateNestedManyWithoutUpdatedByInput
   updatedAt: DateTime
@@ -466,10 +464,12 @@ input UserCreateWithoutShipDeletedByInput {
   createdAt: DateTime
   deletedAt: DateTime
   id: String
+  isDeactivated: Boolean
   isDeleted: Boolean
   name: String!
   password: String!
-  permission: Permission
+  permissions: UserCreatepermissionsInput
+  refreshToken: String
   shipCreatedBy: ShipCreateNestedManyWithoutCreatedByInput
   shipUpdatedBy: ShipCreateNestedManyWithoutUpdatedByInput
   updatedAt: DateTime
@@ -480,14 +480,20 @@ input UserCreateWithoutShipUpdatedByInput {
   createdAt: DateTime
   deletedAt: DateTime
   id: String
+  isDeactivated: Boolean
   isDeleted: Boolean
   name: String!
   password: String!
-  permission: Permission
+  permissions: UserCreatepermissionsInput
+  refreshToken: String
   shipCreatedBy: ShipCreateNestedManyWithoutCreatedByInput
   shipDeletedBy: ShipCreateNestedManyWithoutDeletedByInput
   updatedAt: DateTime
   username: String!
+}
+
+input UserCreatepermissionsInput {
+  set: [Permission!]!
 }
 
 input UserNullableRelationFilter {
@@ -502,10 +508,12 @@ input UserWhereInput {
   createdAt: DateTimeFilter
   deletedAt: DateTimeNullableFilter
   id: StringFilter
+  isDeactivated: BoolFilter
   isDeleted: BoolFilter
   name: StringFilter
   password: StringFilter
-  permission: EnumPermissionFilter
+  permissions: EnumPermissionNullableListFilter
+  refreshToken: StringNullableFilter
   shipCreatedBy: ShipListRelationFilter
   shipDeletedBy: ShipListRelationFilter
   shipUpdatedBy: ShipListRelationFilter
@@ -520,10 +528,12 @@ input UserWhereUniqueInput {
   createdAt: DateTimeFilter
   deletedAt: DateTimeNullableFilter
   id: String
+  isDeactivated: BoolFilter
   isDeleted: BoolFilter
   name: StringFilter
   password: StringFilter
-  permission: EnumPermissionFilter
+  permissions: EnumPermissionNullableListFilter
+  refreshToken: StringNullableFilter
   shipCreatedBy: ShipListRelationFilter
   shipDeletedBy: ShipListRelationFilter
   shipUpdatedBy: ShipListRelationFilter
