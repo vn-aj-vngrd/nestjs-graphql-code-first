@@ -5,13 +5,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
   constructor(private configService: ConfigService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const { headers } = context.switchToHttp().getRequest();
+    const gqlContext = GqlExecutionContext.create(context);
+    const { headers } = gqlContext.getContext().req;
     const apiKey = headers['x-api-key'];
 
     if (!this.isApiKeyValid(apiKey)) {

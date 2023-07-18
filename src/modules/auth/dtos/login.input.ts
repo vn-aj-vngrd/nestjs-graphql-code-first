@@ -7,7 +7,7 @@ export class LoginInput {
   @IsNotEmpty()
   username: string;
 
-  @Field({ nullable: true })
+  @Field()
   @IsNotEmpty()
-  password?: string;
+  password: string;
 }

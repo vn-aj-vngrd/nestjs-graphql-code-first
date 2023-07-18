@@ -56,9 +56,20 @@ input Filter {
   value: String!
 }
 
+input LoginInput {
+  password: String!
+  username: String!
+}
+
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
 type Mutation {
   createShip(input: ShipCreateInput!): Ship!
   deleteShip(id: String!): Boolean!
+  login(loginInput: LoginInput!): LoginResponse!
   updateShip(id: String!, input: ShipUncheckedUpdateInput!): Ship!
 }
 
@@ -397,7 +408,6 @@ type User {
   name: String!
   password: String!
   permissions: [Permission!]
-  refreshToken: String
   shipCreatedBy: [Ship!]
   shipDeletedBy: [Ship!]
   shipUpdatedBy: [Ship!]
@@ -453,7 +463,6 @@ input UserCreateWithoutShipCreatedByInput {
   name: String!
   password: String!
   permissions: UserCreatepermissionsInput
-  refreshToken: String
   shipDeletedBy: ShipCreateNestedManyWithoutDeletedByInput
   shipUpdatedBy: ShipCreateNestedManyWithoutUpdatedByInput
   updatedAt: DateTime
@@ -469,7 +478,6 @@ input UserCreateWithoutShipDeletedByInput {
   name: String!
   password: String!
   permissions: UserCreatepermissionsInput
-  refreshToken: String
   shipCreatedBy: ShipCreateNestedManyWithoutCreatedByInput
   shipUpdatedBy: ShipCreateNestedManyWithoutUpdatedByInput
   updatedAt: DateTime
@@ -485,7 +493,6 @@ input UserCreateWithoutShipUpdatedByInput {
   name: String!
   password: String!
   permissions: UserCreatepermissionsInput
-  refreshToken: String
   shipCreatedBy: ShipCreateNestedManyWithoutCreatedByInput
   shipDeletedBy: ShipCreateNestedManyWithoutDeletedByInput
   updatedAt: DateTime
@@ -513,7 +520,6 @@ input UserWhereInput {
   name: StringFilter
   password: StringFilter
   permissions: EnumPermissionNullableListFilter
-  refreshToken: StringNullableFilter
   shipCreatedBy: ShipListRelationFilter
   shipDeletedBy: ShipListRelationFilter
   shipUpdatedBy: ShipListRelationFilter
@@ -533,7 +539,6 @@ input UserWhereUniqueInput {
   name: StringFilter
   password: StringFilter
   permissions: EnumPermissionNullableListFilter
-  refreshToken: StringNullableFilter
   shipCreatedBy: ShipListRelationFilter
   shipDeletedBy: ShipListRelationFilter
   shipUpdatedBy: ShipListRelationFilter

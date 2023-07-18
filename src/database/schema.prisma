@@ -21,12 +21,11 @@ enum Permission {
 }
 
 model User {
-  id           String       @id @default(cuid())
-  name         String
-  username     String
-  password     String
-  permissions  Permission[] @default([GUEST])
-  refreshToken String?
+  id          String       @id @default(cuid())
+  name        String
+  username    String
+  password    String
+  permissions Permission[] @default([GUEST])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

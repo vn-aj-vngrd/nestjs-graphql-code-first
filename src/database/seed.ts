@@ -1,9 +1,19 @@
 import { faker } from '@faker-js/faker';
 import { PrismaClient } from '@prisma/client';
+import * as argon2 from 'argon2';
 
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.user.create({
+    data: {
+      id: '-1',
+      name: faker.person.fullName(),
+      username: 'username',
+      password: await argon2.hash('password'),
+    },
+  });
+
   // Create a user
   for (let i = 0; i < 10; i++) {
     await prisma.user.create({

@@ -3,18 +3,17 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 
 import { LoggingPlugin } from './common/plugins/logging.plugin';
 import { ApiKeyGuard } from './guards/api-key.guard';
-import { AtGuard } from './guards/at.guard';
-import { PermissionsGuard } from './guards/permissions.guard';
 import { PrismaMiddleware } from './middlewares/prisma.middleware';
 import { RequestLoggerMiddleware } from './middlewares/request-logger.middleware';
 import { AuthModule } from './modules/auth/auth.module';
 import { ShipsModule } from './modules/ships/ships.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -38,25 +37,22 @@ import { ShipsModule } from './modules/ships/ships.module';
     }),
     AuthModule,
     ShipsModule,
+    UsersModule,
   ],
   providers: [
     LoggingPlugin,
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: GqlThrottlerGuard,
+    // },
     {
       provide: APP_GUARD,
       useClass: ApiKeyGuard,
     },
-    {
-      provide: APP_GUARD,
-      useClass: AtGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: PermissionsGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: PermissionsGuard,
+    // },
   ],
 })
 export class AppModule implements NestModule {
