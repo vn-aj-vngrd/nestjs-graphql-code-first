@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { PrismaService } from 'nestjs-prisma';
@@ -10,11 +9,7 @@ import { LoginResponse } from './responses/login.response';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private prisma: PrismaService,
-    private jwtService: JwtService,
-    private configService: ConfigService,
-  ) {}
+  constructor(private prisma: PrismaService, private jwtService: JwtService) {}
 
   async validateUser(username: string, password: string): Promise<User> {
     const user = await this.prisma.user.findFirst({
@@ -48,10 +43,7 @@ export class AuthService {
       permissions: user.permissions,
     };
 
-    const access_token = await this.jwtService.signAsync(jwtPayload, {
-      secret: this.configService.get<string>('AT_SECRET'),
-      expiresIn: this.configService.get<string>('AT_EXPIRES_IN'),
-    });
+    const access_token = await this.jwtService.signAsync(jwtPayload);
 
     return {
       access_token,
