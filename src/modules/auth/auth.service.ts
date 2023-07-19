@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { PrismaService } from 'nestjs-prisma';
+import { User } from 'src/@generated/user/user.model';
 import { JwtPayload } from 'src/common/types/token.type';
 
-import { LoginInput } from './dtos/login.input';
 import { LoginResponse } from './responses/login.response';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<boolean> {
+  async validateUser(username: string, password: string): Promise<User> {
     const user = await this.prisma.user.findFirst({
       where: {
         username,
@@ -25,46 +25,14 @@ export class AuthService {
       },
     });
 
-    if (!user) {
-      throw new BadRequestException(
-        'The user does not exist or has been deactivated.',
-      );
-    }
-
     if (!(await argon2.verify(user.password, password))) {
-      throw new BadRequestException('The password entered is incorrect.');
+      return null;
     }
 
-    return true;
+    return user;
   }
 
-  async login(loginInput: LoginInput): Promise<LoginResponse> {
-    const { username, password } = loginInput;
-
-    const user = await this.prisma.user.findFirst({
-      where: {
-        username,
-        isDeactivated: false,
-        isDeleted: false,
-      },
-      include: {
-        shipCreatedBy: true,
-        shipUpdatedBy: true,
-        shipDeletedBy: true,
-        _count: true,
-      },
-    });
-
-    if (!user) {
-      throw new BadRequestException(
-        'The user does not exist or has been deactivated.',
-      );
-    }
-
-    if (!(await argon2.verify(user.password, password))) {
-      throw new BadRequestException('The password entered is incorrect.');
-    }
-
+  async login(user: User): Promise<LoginResponse> {
     // TODO: Create audit log
     // await this.prisma.auditLog.create({
     //   data: {
