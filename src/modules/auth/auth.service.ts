@@ -5,7 +5,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { User } from 'src/@generated/user/user.model';
 import { JwtPayload } from 'src/common/types/token.type';
 
-import { LoginResponse } from './responses/login.response';
+import { LoginResponse } from './dtos/login.response';
 
 @Injectable()
 export class AuthService {

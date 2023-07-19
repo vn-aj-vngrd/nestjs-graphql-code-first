@@ -5,7 +5,7 @@ import { GqlAuthGuard } from 'src/guards/gql-auth.guard';
 
 import { AuthService } from './auth.service';
 import { LoginInput } from './dtos/login.input';
-import { LoginResponse } from './responses/login.response';
+import { LoginResponse } from './dtos/login.response';
 
 @Resolver()
 export class AuthResolver {

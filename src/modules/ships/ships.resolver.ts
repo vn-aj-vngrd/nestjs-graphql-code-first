@@ -4,7 +4,7 @@ import { Ship } from 'src/@generated/ship/ship.model';
 import { ShipUncheckedCreateInput } from 'src/@generated/ship/ship-unchecked-create.input';
 import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-update.input';
 import { ParamArgs } from 'src/common/args';
-import { CurrentUserId } from 'src/common/decorators/current-user.decorator';
+import { CurrentUserId } from 'src/common/decorators/current-userId.decorator';
 import { Permissions } from 'src/common/decorators/permissions.decorator';
 import { Permission } from 'src/common/types/permission.enum';
 
