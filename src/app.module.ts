@@ -11,6 +11,7 @@ import { join } from 'path';
 import { ApiKeyGuard } from './guards/api-key.guard';
 import { GqlThrottlerGuard } from './guards/gql-throttler.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { PermissionsGuard } from './guards/permissions.guard';
 import { PrismaMiddleware } from './middlewares/prisma.middleware';
 import { RequestLoggerMiddleware } from './middlewares/request-logger.middleware';
 import { AuthModule } from './modules/auth/auth.module';
@@ -57,10 +58,10 @@ import { UsersModule } from './modules/users/users.module';
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: PermissionsGuard,
-    // },
+    {
+      provide: APP_GUARD,
+      useClass: PermissionsGuard,
+    },
   ],
 })
 export class AppModule implements NestModule {

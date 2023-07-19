@@ -1,10 +1,12 @@
 import { NotFoundException } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { Ship } from 'src/@generated/ship/ship.model';
 import { ShipCreateInput } from 'src/@generated/ship/ship-create.input';
 import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-update.input';
 import { ParamArgs } from 'src/common/args';
+import { Permissions } from 'src/common/decorators/permissions.decorator';
+import { Permission } from 'src/common/types/permission.enum';
 
 import { ShipsService } from './ships.service';
 import { ShipWithUser } from './ships.type';
@@ -16,6 +18,7 @@ export class ShipsResolver {
   constructor(private readonly shipsService: ShipsService) {}
 
   @Query(() => Ship)
+  @Permissions(Permission.ADMIN)
   async ship(@Args('id') id: string): Promise<ShipWithUser> {
     const ship = await this.shipsService.findOne(id);
     if (!ship) {
@@ -25,11 +28,13 @@ export class ShipsResolver {
   }
 
   @Query(() => [Ship])
+  @Permissions(Permission.ADMIN)
   ships(@Args() args: ParamArgs): Promise<ShipWithUser[]> {
     return this.shipsService.findAll(args);
   }
 
   @Mutation(() => Ship)
+  @Permissions(Permission.ADMIN)
   async createShip(
     @Args('input') input: ShipCreateInput,
   ): Promise<ShipWithUser> {
@@ -40,6 +45,7 @@ export class ShipsResolver {
   }
 
   @Mutation(() => Ship)
+  @Permissions(Permission.ADMIN)
   async updateShip(
     @Args('id') id: string,
     @Args('input') input: ShipUncheckedUpdateInput,
@@ -51,12 +57,8 @@ export class ShipsResolver {
   }
 
   @Mutation(() => Boolean)
+  @Permissions(Permission.ADMIN)
   async deleteShip(@Args('id') id: string) {
     return this.shipsService.delete(id);
-  }
-
-  @Subscription(() => Ship)
-  shipCreated() {
-    return pubSub.asyncIterator(['shipCreated', 'shipUpdated']);
   }
 }

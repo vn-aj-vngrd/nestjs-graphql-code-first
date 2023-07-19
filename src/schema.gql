@@ -394,10 +394,6 @@ input StringNullableFilter {
   startsWith: String
 }
 
-type Subscription {
-  shipCreated: Ship!
-}
-
 type User {
   _count: UserCount!
   createdAt: DateTime!
