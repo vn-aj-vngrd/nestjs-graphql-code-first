@@ -11,6 +11,7 @@ async function main() {
       name: faker.person.fullName(),
       username: 'username',
       password: await argon2.hash('password'),
+      permissions: ['ADMIN'],
     },
   });
 

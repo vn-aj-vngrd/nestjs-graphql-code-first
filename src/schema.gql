@@ -2,13 +2,29 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input BoolFieldUpdateOperationsInput {
-  set: Boolean
+enum Action {
+  CREATE
+  HARD_DELETE
+  LOGIN
+  RESTORE
+  SOFT_DELETE
+  UPDATE
 }
 
-input BoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
+type AuditLog {
+  action: Action!
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  table: String
+  user: User!
+  userId: String!
+  values: String
+  valuesBefore: String
+}
+
+input BoolFieldUpdateOperationsInput {
+  set: Boolean
 }
 
 """
@@ -18,36 +34,6 @@ scalar DateTime
 
 input DateTimeFieldUpdateOperationsInput {
   set: DateTime
-}
-
-input DateTimeFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeFilter
-  notIn: [DateTime!]
-}
-
-input DateTimeNullableFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeNullableFilter
-  notIn: [DateTime!]
-}
-
-input EnumPermissionNullableListFilter {
-  equals: [Permission!]
-  has: Permission
-  hasEvery: [Permission!]
-  hasSome: [Permission!]
-  isEmpty: Boolean
 }
 
 input Filter {
@@ -67,65 +53,13 @@ type LoginResponse {
 }
 
 type Mutation {
-  createShip(input: ShipCreateInput!): Ship!
-  deleteShip(id: String!): Boolean!
+  createShip(input: ShipUncheckedCreateInput!): ShipResponse!
+  createUser(input: UserCreateManyInput!): User!
+  deleteShip(ids: String!): ShipResponse!
+  deleteUser(id: String!): Boolean!
   login(loginInput: LoginInput!): LoginResponse!
-  updateShip(id: String!, input: ShipUncheckedUpdateInput!): Ship!
-}
-
-input NestedBoolFilter {
-  equals: Boolean
-  not: NestedBoolFilter
-}
-
-input NestedDateTimeFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeFilter
-  notIn: [DateTime!]
-}
-
-input NestedDateTimeNullableFilter {
-  equals: DateTime
-  gt: DateTime
-  gte: DateTime
-  in: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  not: NestedDateTimeNullableFilter
-  notIn: [DateTime!]
-}
-
-input NestedStringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
-}
-
-input NestedStringNullableFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  not: NestedStringNullableFilter
-  notIn: [String!]
-  startsWith: String
+  updateShip(ids: String!, input: ShipUncheckedUpdateInput!): ShipResponse!
+  updateUser(id: String!, input: UserUncheckedUpdateManyInput!): User!
 }
 
 input NullableDateTimeFieldUpdateOperationsInput {
@@ -155,20 +89,14 @@ enum Permission {
 type Query {
   ship(id: String!): Ship!
   ships(filters: [Filter!], orderBy: OrderBy, pagination: Pagination, search: String): [Ship!]!
-}
-
-enum QueryMode {
-  default
-  insensitive
+  user(id: String!): User!
+  users(filters: [Filter!], orderBy: OrderBy, pagination: Pagination, search: String): [User!]!
 }
 
 type Ship {
   createdAt: DateTime!
   createdBy: User
   createdById: String
-  deletedAt: DateTime
-  deletedBy: User
-  deletedById: String
   id: ID!
   isDeleted: Boolean!
   name: String!
@@ -177,146 +105,24 @@ type Ship {
   updatedById: String
 }
 
-input ShipCreateInput {
-  createdAt: DateTime
-  createdBy: UserCreateNestedOneWithoutShipCreatedByInput
-  deletedAt: DateTime
-  deletedBy: UserCreateNestedOneWithoutShipDeletedByInput
-  id: String
-  isDeleted: Boolean
-  name: String!
-  updatedAt: DateTime
-  updatedBy: UserCreateNestedOneWithoutShipUpdatedByInput
+type ShipResponse {
+  message: String!
+  user: User!
 }
 
-input ShipCreateManyCreatedByInput {
+input ShipUncheckedCreateInput {
   createdAt: DateTime
-  deletedAt: DateTime
-  deletedById: String
+  createdById: String
   id: String
   isDeleted: Boolean
   name: String!
   updatedAt: DateTime
   updatedById: String
-}
-
-input ShipCreateManyCreatedByInputEnvelope {
-  data: [ShipCreateManyCreatedByInput!]!
-  skipDuplicates: Boolean
-}
-
-input ShipCreateManyDeletedByInput {
-  createdAt: DateTime
-  createdById: String
-  deletedAt: DateTime
-  id: String
-  isDeleted: Boolean
-  name: String!
-  updatedAt: DateTime
-  updatedById: String
-}
-
-input ShipCreateManyDeletedByInputEnvelope {
-  data: [ShipCreateManyDeletedByInput!]!
-  skipDuplicates: Boolean
-}
-
-input ShipCreateManyUpdatedByInput {
-  createdAt: DateTime
-  createdById: String
-  deletedAt: DateTime
-  deletedById: String
-  id: String
-  isDeleted: Boolean
-  name: String!
-  updatedAt: DateTime
-}
-
-input ShipCreateManyUpdatedByInputEnvelope {
-  data: [ShipCreateManyUpdatedByInput!]!
-  skipDuplicates: Boolean
-}
-
-input ShipCreateNestedManyWithoutCreatedByInput {
-  connect: [ShipWhereUniqueInput!]
-  connectOrCreate: [ShipCreateOrConnectWithoutCreatedByInput!]
-  create: [ShipCreateWithoutCreatedByInput!]
-  createMany: ShipCreateManyCreatedByInputEnvelope
-}
-
-input ShipCreateNestedManyWithoutDeletedByInput {
-  connect: [ShipWhereUniqueInput!]
-  connectOrCreate: [ShipCreateOrConnectWithoutDeletedByInput!]
-  create: [ShipCreateWithoutDeletedByInput!]
-  createMany: ShipCreateManyDeletedByInputEnvelope
-}
-
-input ShipCreateNestedManyWithoutUpdatedByInput {
-  connect: [ShipWhereUniqueInput!]
-  connectOrCreate: [ShipCreateOrConnectWithoutUpdatedByInput!]
-  create: [ShipCreateWithoutUpdatedByInput!]
-  createMany: ShipCreateManyUpdatedByInputEnvelope
-}
-
-input ShipCreateOrConnectWithoutCreatedByInput {
-  create: ShipCreateWithoutCreatedByInput!
-  where: ShipWhereUniqueInput!
-}
-
-input ShipCreateOrConnectWithoutDeletedByInput {
-  create: ShipCreateWithoutDeletedByInput!
-  where: ShipWhereUniqueInput!
-}
-
-input ShipCreateOrConnectWithoutUpdatedByInput {
-  create: ShipCreateWithoutUpdatedByInput!
-  where: ShipWhereUniqueInput!
-}
-
-input ShipCreateWithoutCreatedByInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  deletedBy: UserCreateNestedOneWithoutShipDeletedByInput
-  id: String
-  isDeleted: Boolean
-  name: String!
-  updatedAt: DateTime
-  updatedBy: UserCreateNestedOneWithoutShipUpdatedByInput
-}
-
-input ShipCreateWithoutDeletedByInput {
-  createdAt: DateTime
-  createdBy: UserCreateNestedOneWithoutShipCreatedByInput
-  deletedAt: DateTime
-  id: String
-  isDeleted: Boolean
-  name: String!
-  updatedAt: DateTime
-  updatedBy: UserCreateNestedOneWithoutShipUpdatedByInput
-}
-
-input ShipCreateWithoutUpdatedByInput {
-  createdAt: DateTime
-  createdBy: UserCreateNestedOneWithoutShipCreatedByInput
-  deletedAt: DateTime
-  deletedBy: UserCreateNestedOneWithoutShipDeletedByInput
-  id: String
-  isDeleted: Boolean
-  name: String!
-  updatedAt: DateTime
-}
-
-input ShipListRelationFilter {
-  every: ShipWhereInput
-  none: ShipWhereInput
-  some: ShipWhereInput
 }
 
 input ShipUncheckedUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   createdById: NullableStringFieldUpdateOperationsInput
-  deletedAt: NullableDateTimeFieldUpdateOperationsInput
-  deletedById: NullableStringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   isDeleted: BoolFieldUpdateOperationsInput
   name: StringFieldUpdateOperationsInput
@@ -324,174 +130,49 @@ input ShipUncheckedUpdateInput {
   updatedById: NullableStringFieldUpdateOperationsInput
 }
 
-input ShipWhereInput {
-  AND: [ShipWhereInput!]
-  NOT: [ShipWhereInput!]
-  OR: [ShipWhereInput!]
-  createdAt: DateTimeFilter
-  createdBy: UserNullableRelationFilter
-  createdById: StringNullableFilter
-  deletedAt: DateTimeNullableFilter
-  deletedBy: UserNullableRelationFilter
-  deletedById: StringNullableFilter
-  id: StringFilter
-  isDeleted: BoolFilter
-  name: StringFilter
-  updatedAt: DateTimeFilter
-  updatedBy: UserNullableRelationFilter
-  updatedById: StringNullableFilter
-}
-
-input ShipWhereUniqueInput {
-  AND: [ShipWhereInput!]
-  NOT: [ShipWhereInput!]
-  OR: [ShipWhereInput!]
-  createdAt: DateTimeFilter
-  createdBy: UserNullableRelationFilter
-  createdById: StringNullableFilter
-  deletedAt: DateTimeNullableFilter
-  deletedBy: UserNullableRelationFilter
-  deletedById: StringNullableFilter
-  id: String
-  isDeleted: BoolFilter
-  name: StringFilter
-  updatedAt: DateTimeFilter
-  updatedBy: UserNullableRelationFilter
-  updatedById: StringNullableFilter
-}
-
 input StringFieldUpdateOperationsInput {
   set: String
 }
 
-input StringFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedStringFilter
-  notIn: [String!]
-  startsWith: String
-}
-
-input StringNullableFilter {
-  contains: String
-  endsWith: String
-  equals: String
-  gt: String
-  gte: String
-  in: [String!]
-  lt: String
-  lte: String
-  mode: QueryMode
-  not: NestedStringNullableFilter
-  notIn: [String!]
-  startsWith: String
-}
-
 type User {
   _count: UserCount!
+  auditLogs: [AuditLog!]
   createdAt: DateTime!
+  createdById: String
   deletedAt: DateTime
   id: ID!
+  image: String
   isDeactivated: Boolean!
   isDeleted: Boolean!
   name: String!
   password: String!
   permissions: [Permission!]
-  shipCreatedBy: [Ship!]
-  shipDeletedBy: [Ship!]
-  shipUpdatedBy: [Ship!]
+  shipCreators: [Ship!]
+  shipUpdaters: [Ship!]
   updatedAt: DateTime!
+  updatedById: String
   username: String!
 }
 
 type UserCount {
-  shipCreatedBy: Int!
-  shipDeletedBy: Int!
-  shipUpdatedBy: Int!
+  auditLogs: Int!
+  shipCreators: Int!
+  shipUpdaters: Int!
 }
 
-input UserCreateNestedOneWithoutShipCreatedByInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutShipCreatedByInput
-  create: UserCreateWithoutShipCreatedByInput
-}
-
-input UserCreateNestedOneWithoutShipDeletedByInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutShipDeletedByInput
-  create: UserCreateWithoutShipDeletedByInput
-}
-
-input UserCreateNestedOneWithoutShipUpdatedByInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutShipUpdatedByInput
-  create: UserCreateWithoutShipUpdatedByInput
-}
-
-input UserCreateOrConnectWithoutShipCreatedByInput {
-  create: UserCreateWithoutShipCreatedByInput!
-  where: UserWhereUniqueInput!
-}
-
-input UserCreateOrConnectWithoutShipDeletedByInput {
-  create: UserCreateWithoutShipDeletedByInput!
-  where: UserWhereUniqueInput!
-}
-
-input UserCreateOrConnectWithoutShipUpdatedByInput {
-  create: UserCreateWithoutShipUpdatedByInput!
-  where: UserWhereUniqueInput!
-}
-
-input UserCreateWithoutShipCreatedByInput {
+input UserCreateManyInput {
   createdAt: DateTime
+  createdById: String
   deletedAt: DateTime
   id: String
+  image: String
   isDeactivated: Boolean
   isDeleted: Boolean
   name: String!
   password: String!
   permissions: UserCreatepermissionsInput
-  shipDeletedBy: ShipCreateNestedManyWithoutDeletedByInput
-  shipUpdatedBy: ShipCreateNestedManyWithoutUpdatedByInput
   updatedAt: DateTime
-  username: String!
-}
-
-input UserCreateWithoutShipDeletedByInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  isDeactivated: Boolean
-  isDeleted: Boolean
-  name: String!
-  password: String!
-  permissions: UserCreatepermissionsInput
-  shipCreatedBy: ShipCreateNestedManyWithoutCreatedByInput
-  shipUpdatedBy: ShipCreateNestedManyWithoutUpdatedByInput
-  updatedAt: DateTime
-  username: String!
-}
-
-input UserCreateWithoutShipUpdatedByInput {
-  createdAt: DateTime
-  deletedAt: DateTime
-  id: String
-  isDeactivated: Boolean
-  isDeleted: Boolean
-  name: String!
-  password: String!
-  permissions: UserCreatepermissionsInput
-  shipCreatedBy: ShipCreateNestedManyWithoutCreatedByInput
-  shipDeletedBy: ShipCreateNestedManyWithoutDeletedByInput
-  updatedAt: DateTime
+  updatedById: String
   username: String!
 }
 
@@ -499,45 +180,23 @@ input UserCreatepermissionsInput {
   set: [Permission!]!
 }
 
-input UserNullableRelationFilter {
-  is: UserWhereInput
-  isNot: UserWhereInput
+input UserUncheckedUpdateManyInput {
+  createdAt: DateTimeFieldUpdateOperationsInput
+  createdById: NullableStringFieldUpdateOperationsInput
+  deletedAt: NullableDateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  image: NullableStringFieldUpdateOperationsInput
+  isDeactivated: BoolFieldUpdateOperationsInput
+  isDeleted: BoolFieldUpdateOperationsInput
+  name: StringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
+  permissions: UserUpdatepermissionsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+  updatedById: NullableStringFieldUpdateOperationsInput
+  username: StringFieldUpdateOperationsInput
 }
 
-input UserWhereInput {
-  AND: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  createdAt: DateTimeFilter
-  deletedAt: DateTimeNullableFilter
-  id: StringFilter
-  isDeactivated: BoolFilter
-  isDeleted: BoolFilter
-  name: StringFilter
-  password: StringFilter
-  permissions: EnumPermissionNullableListFilter
-  shipCreatedBy: ShipListRelationFilter
-  shipDeletedBy: ShipListRelationFilter
-  shipUpdatedBy: ShipListRelationFilter
-  updatedAt: DateTimeFilter
-  username: StringFilter
-}
-
-input UserWhereUniqueInput {
-  AND: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  createdAt: DateTimeFilter
-  deletedAt: DateTimeNullableFilter
-  id: String
-  isDeactivated: BoolFilter
-  isDeleted: BoolFilter
-  name: StringFilter
-  password: StringFilter
-  permissions: EnumPermissionNullableListFilter
-  shipCreatedBy: ShipListRelationFilter
-  shipDeletedBy: ShipListRelationFilter
-  shipUpdatedBy: ShipListRelationFilter
-  updatedAt: DateTimeFilter
-  username: StringFilter
+input UserUpdatepermissionsInput {
+  push: [Permission!]
+  set: [Permission!]
 }

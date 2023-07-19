@@ -22,6 +22,7 @@ enum Permission {
 
 model User {
   id          String       @id @default(cuid())
+  image       String?
   name        String
   username    String
   password    String
@@ -31,29 +32,58 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
+  createdById String?
+  updatedById String?
+
   isDeactivated Boolean @default(false)
   isDeleted     Boolean @default(false)
 
-  shipCreatedBy Ship[] @relation("shipCreatedBy")
-  shipUpdatedBy Ship[] @relation("shipUpdatedBy")
-  shipDeletedBy Ship[] @relation("shipDeletedBy")
+  shipCreators Ship[]     @relation("shipCreators")
+  shipUpdaters Ship[]     @relation("shipUpdaters")
+  auditLogs    AuditLog[]
+
+  @@map("users")
+}
+
+enum Action {
+  CREATE
+  UPDATE
+  SOFT_DELETE
+  HARD_DELETE
+  RESTORE
+  LOGIN
+}
+
+model AuditLog {
+  id           String  @id @default(cuid())
+  userId       String
+  action       Action
+  table        String?
+  description  String
+  values       String?
+  valuesBefore String?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
 }
 
 model Ship {
   id   String @id @default(cuid())
   name String
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   createdById String?
   updatedById String?
-  deletedById String?
 
   isDeleted Boolean @default(false)
 
-  createdBy User? @relation("shipCreatedBy", fields: [createdById], references: [id])
-  updatedBy User? @relation("shipUpdatedBy", fields: [updatedById], references: [id])
-  deletedBy User? @relation("shipDeletedBy", fields: [deletedById], references: [id])
+  createdBy User? @relation("shipCreators", fields: [createdById], references: [id])
+  updatedBy User? @relation("shipUpdaters", fields: [updatedById], references: [id])
+
+  @@map("ships")
 }

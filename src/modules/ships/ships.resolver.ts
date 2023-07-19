@@ -1,17 +1,15 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { PubSub } from 'graphql-subscriptions';
 import { Ship } from 'src/@generated/ship/ship.model';
-import { ShipCreateInput } from 'src/@generated/ship/ship-create.input';
+import { ShipUncheckedCreateInput } from 'src/@generated/ship/ship-unchecked-create.input';
 import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-update.input';
 import { ParamArgs } from 'src/common/args';
+import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id.decorator';
 import { Permissions } from 'src/common/decorators/permissions.decorator';
 import { Permission } from 'src/common/types/permission.enum';
 
+import { ShipResponse } from './responses/ship.response';
 import { ShipsService } from './ships.service';
-import { ShipWithUser } from './ships.type';
-
-const pubSub = new PubSub();
 
 @Resolver(() => Ship)
 export class ShipsResolver {
@@ -19,46 +17,88 @@ export class ShipsResolver {
 
   @Query(() => Ship)
   @Permissions(Permission.ADMIN)
-  async ship(@Args('id') id: string): Promise<ShipWithUser> {
-    const ship = await this.shipsService.findOne(id);
-    if (!ship) {
-      throw new NotFoundException(id);
-    }
-    return ship;
+  async ship(@Args('id') id: string) {
+    return this.shipsService.findOne(id);
   }
 
   @Query(() => [Ship])
   @Permissions(Permission.ADMIN)
-  ships(@Args() args: ParamArgs): Promise<ShipWithUser[]> {
+  ships(@Args() args: ParamArgs) {
     return this.shipsService.findAll(args);
   }
 
-  @Mutation(() => Ship)
+  @Mutation(() => ShipResponse)
   @Permissions(Permission.ADMIN)
   async createShip(
-    @Args('input') input: ShipCreateInput,
-  ): Promise<ShipWithUser> {
-    const ship = await this.shipsService.create(input);
+    @Args('input') input: ShipUncheckedCreateInput,
+    @GetCurrentUserId() userId: string,
+  ) {
+    if (!input.createdById) {
+      input.createdById = userId;
+    }
 
-    pubSub.publish('shipCreated', { shipCreated: ship });
-    return ship;
+    const data = await this.shipsService.create(input);
+
+    return {
+      message: 'Successfully created ship',
+      user: data,
+    };
   }
 
-  @Mutation(() => Ship)
+  @Mutation(() => ShipResponse)
   @Permissions(Permission.ADMIN)
   async updateShip(
-    @Args('id') id: string,
+    @Args('ids') ids: string,
     @Args('input') input: ShipUncheckedUpdateInput,
-  ): Promise<ShipWithUser> {
-    const ship = await this.shipsService.update({ id, input });
+    @GetCurrentUserId() userId: string,
+  ) {
+    const idsArr = ids.split(',');
 
-    pubSub.publish('shipUpdated', { shipUpdated: ship });
-    return ship;
+    if (!input.updatedById) {
+      input.updatedById = userId as ShipUncheckedUpdateInput['updatedById'];
+    }
+
+    try {
+      for (const id of idsArr) {
+        await this.shipsService.update({ id, input, userId, action: 'UPDATE' });
+      }
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+
+    const message =
+      idsArr.length === 1
+        ? `Successfully updated ship ${idsArr[0]}`
+        : `Successfully updated ${idsArr.length} ships`;
+
+    return {
+      message,
+    };
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => ShipResponse)
   @Permissions(Permission.ADMIN)
-  async deleteShip(@Args('id') id: string) {
-    return this.shipsService.delete(id);
+  async deleteShip(
+    @Args('ids') ids: string,
+    @GetCurrentUserId() userId: string,
+  ) {
+    const idsArr = ids.split(',');
+
+    try {
+      for (const id of idsArr) {
+        await this.shipsService.delete(id, userId);
+      }
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+
+    const message =
+      idsArr.length === 1
+        ? `Successfully deleted ship ${idsArr[0]}`
+        : `Successfully deleted ${idsArr.length} ships`;
+
+    return {
+      message,
+    };
   }
 }

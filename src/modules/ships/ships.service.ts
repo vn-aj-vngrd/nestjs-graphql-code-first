@@ -1,20 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma, Ship } from '@prisma/client';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { Prisma, Ship, User } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { ShipUncheckedCreateInput } from 'src/@generated/ship/ship-unchecked-create.input';
 import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-update.input';
-import { ShipWhereUniqueInput } from 'src/@generated/ship/ship-where-unique.input';
 import { ParamArgs } from 'src/common/args';
 import { transformOrderBy } from 'src/common/utils/transform-orderBy';
 import { transformWhere } from 'src/common/utils/transform-where';
 
-import { ShipWithUser } from './ships.type';
+export interface ShipWithUser extends Ship {
+  createdBy: User;
+  updatedBy: User;
+}
 
 @Injectable()
 export class ShipsService {
   constructor(private prisma: PrismaService) {}
 
-  async findOne(id: Ship['id']): Promise<ShipWithUser | null> {
+  async findOne(id: string): Promise<ShipWithUser | null> {
     return this.prisma.ship.findUnique({
       where: {
         id,
@@ -22,7 +24,6 @@ export class ShipsService {
       include: {
         createdBy: true,
         updatedBy: true,
-        deletedBy: true,
       },
     });
   }
@@ -66,29 +67,51 @@ export class ShipsService {
       include: {
         createdBy: true,
         updatedBy: true,
-        deletedBy: true,
       },
     });
   }
 
   async create(input: ShipUncheckedCreateInput): Promise<ShipWithUser> {
-    return this.prisma.ship.create({
+    const data = await this.prisma.ship.create({
       data: input,
       include: {
         createdBy: true,
         updatedBy: true,
-        deletedBy: true,
       },
     });
+
+    await this.prisma.auditLog.create({
+      data: {
+        userId: input.createdById,
+        action: 'CREATE',
+        table: 'ships',
+        description: `created a new Ship (${data.id})`,
+        values: JSON.stringify(data),
+      },
+    });
+
+    return data;
   }
 
   async update(params: {
-    id: ShipWhereUniqueInput['id'];
+    id: string;
     input: ShipUncheckedUpdateInput;
+    userId: string;
+    action: 'UPDATE' | 'SOFT_DELETE';
   }): Promise<ShipWithUser> {
-    const { id, input } = params;
+    const { id, input, userId, action } = params;
 
-    return this.prisma.ship.update({
+    const oldData = await this.prisma.ship.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!oldData) {
+      throw new BadRequestException('Ship not found');
+    }
+
+    const data = await this.prisma.ship.update({
       where: {
         id,
       },
@@ -96,12 +119,28 @@ export class ShipsService {
       include: {
         createdBy: true,
         updatedBy: true,
-        deletedBy: true,
       },
     });
+
+    await this.prisma.auditLog.create({
+      data: {
+        userId,
+        action,
+        table: 'ships',
+        description: `${action
+          .replace(/_/g, ' ')
+          .toLowerCase()
+          .split(' ')
+          .join(' ')}d a Ship (${oldData.id})`,
+        values: JSON.stringify(data),
+        valuesBefore: JSON.stringify(oldData),
+      },
+    });
+
+    return data;
   }
 
-  async delete(id: string): Promise<boolean> {
+  async delete(id: string, userId: string): Promise<boolean> {
     const data = await this.prisma.ship.delete({
       where: {
         id,
@@ -109,7 +148,16 @@ export class ShipsService {
       include: {
         createdBy: true,
         updatedBy: true,
-        deletedBy: true,
+      },
+    });
+
+    await this.prisma.auditLog.create({
+      data: {
+        userId,
+        action: 'HARD_DELETE',
+        table: 'ships',
+        description: `hard deleted a Ship ${id}`,
+        values: JSON.stringify(data),
       },
     });
 

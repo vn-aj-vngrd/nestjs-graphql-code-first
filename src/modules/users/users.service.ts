@@ -6,8 +6,8 @@ import { PrismaService } from 'nestjs-prisma';
 import { User } from 'src/@generated/user/user.model';
 import { UserCreateManyInput } from 'src/@generated/user/user-create-many.input';
 import { UserOrderByWithRelationInput } from 'src/@generated/user/user-order-by-with-relation.input';
+import { UserUncheckedUpdateManyInput } from 'src/@generated/user/user-unchecked-update-many.input';
 import { UserWhereInput } from 'src/@generated/user/user-where.input';
-import { UserWhereUniqueInput } from 'src/@generated/user/user-where-unique.input';
 import { ParamArgs } from 'src/common/args';
 import { transformOrderBy } from 'src/common/utils/transform-orderBy';
 import { transformWhere } from 'src/common/utils/transform-where';
@@ -20,7 +20,7 @@ export class UsersService {
     private configService: ConfigService,
   ) {}
 
-  async findOne(id: User['id']): Promise<User | null> {
+  async findOne(id: string): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: {
         id,
@@ -74,8 +74,8 @@ export class UsersService {
   }
 
   async update(params: {
-    id: UserWhereUniqueInput['id'];
-    input: UserCreateManyInput;
+    id: string;
+    input: UserUncheckedUpdateManyInput;
   }): Promise<User> {
     const { id, input } = params;
 

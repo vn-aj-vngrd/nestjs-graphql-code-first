@@ -28,14 +28,13 @@ export class AuthService {
   }
 
   async login(user: User): Promise<LoginResponse> {
-    // TODO: Create audit log
-    // await this.prisma.auditLog.create({
-    //   data: {
-    //     userId: user.id,
-    //     action: 'LOGIN',
-    //     description: 'User logged in',
-    //   },
-    // });
+    await this.prisma.auditLog.create({
+      data: {
+        userId: user.id,
+        action: 'LOGIN',
+        description: 'User logged in',
+      },
+    });
 
     const jwtPayload: JwtPayload = {
       sub: user.id,
