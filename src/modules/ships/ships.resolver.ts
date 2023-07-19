@@ -4,7 +4,7 @@ import { Ship } from 'src/@generated/ship/ship.model';
 import { ShipUncheckedCreateInput } from 'src/@generated/ship/ship-unchecked-create.input';
 import { ShipUncheckedUpdateInput } from 'src/@generated/ship/ship-unchecked-update.input';
 import { ParamArgs } from 'src/common/args';
-import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id.decorator';
+import { CurrentUserId } from 'src/common/decorators/current-user.decorator';
 import { Permissions } from 'src/common/decorators/permissions.decorator';
 import { Permission } from 'src/common/types/permission.enum';
 
@@ -31,7 +31,7 @@ export class ShipsResolver {
   @Permissions(Permission.ADMIN)
   async createShip(
     @Args('input') input: ShipUncheckedCreateInput,
-    @GetCurrentUserId() userId: string,
+    @CurrentUserId() userId: string,
   ) {
     if (!input.createdById) {
       input.createdById = userId;
@@ -50,7 +50,7 @@ export class ShipsResolver {
   async updateShip(
     @Args('ids') ids: string,
     @Args('input') input: ShipUncheckedUpdateInput,
-    @GetCurrentUserId() userId: string,
+    @CurrentUserId() userId: string,
   ) {
     const idsArr = ids.split(',');
 
@@ -78,10 +78,7 @@ export class ShipsResolver {
 
   @Mutation(() => ShipResponse)
   @Permissions(Permission.ADMIN)
-  async deleteShip(
-    @Args('ids') ids: string,
-    @GetCurrentUserId() userId: string,
-  ) {
+  async deleteShip(@Args('ids') ids: string, @CurrentUserId() userId: string) {
     const idsArr = ids.split(',');
 
     try {

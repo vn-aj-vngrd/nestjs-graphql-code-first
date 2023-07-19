@@ -3,7 +3,6 @@ import { User } from 'src/@generated/user/user.model';
 import { UserCreateManyInput } from 'src/@generated/user/user-create-many.input';
 import { UserUncheckedUpdateManyInput } from 'src/@generated/user/user-unchecked-update-many.input';
 import { ParamArgs } from 'src/common/args';
-import { GetCurrentUserId } from 'src/common/decorators/get-current-user-id.decorator';
 import { Permissions } from 'src/common/decorators/permissions.decorator';
 import { Permission } from 'src/common/types/permission.enum';
 
@@ -27,10 +26,7 @@ export class UserResolver {
 
   @Mutation(() => User)
   @Permissions(Permission.ADMIN)
-  async createUser(
-    @Args('input') input: UserCreateManyInput,
-    @GetCurrentUserId() userId: string,
-  ): Promise<User> {
+  async createUser(@Args('input') input: UserCreateManyInput): Promise<User> {
     return this.usersService.create(input);
   }
 

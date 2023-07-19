@@ -42,7 +42,7 @@ async function bootstrap() {
   app.use(compression());
 
   // Validation
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.useGlobalPipes(new ValidationPipe());
 
   // PRISMA EXCEPTION FILTER
   const { httpAdapter } = app.get(HttpAdapterHost);
