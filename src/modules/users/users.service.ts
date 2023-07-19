@@ -76,21 +76,60 @@ export class UsersService {
   async update(params: {
     id: string;
     input: UserUncheckedUpdateManyInput;
+    userId: string;
+    action: 'UPDATE' | 'SOFT_DELETE';
   }): Promise<User> {
-    const { id, input } = params;
+    const { id, input, userId, action } = params;
 
-    return this.prisma.user.update({
+    const oldData = await this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!oldData) {
+      throw new BadRequestException('User not found');
+    }
+
+    const data = await this.prisma.user.update({
       where: {
         id,
       },
       data: input,
     });
+
+    await this.prisma.auditLog.create({
+      data: {
+        userId,
+        action,
+        table: 'users',
+        description: `${action
+          .replace(/_/g, ' ')
+          .toLowerCase()
+          .split(' ')
+          .join(' ')}d a User (${oldData.id})`,
+        values: JSON.stringify(data),
+        valuesBefore: JSON.stringify(oldData),
+      },
+    });
+
+    return data;
   }
 
-  async delete(id: string): Promise<boolean> {
+  async delete(id: string, userId: string): Promise<boolean> {
     const data = await this.prisma.user.delete({
       where: {
         id,
+      },
+    });
+
+    await this.prisma.auditLog.create({
+      data: {
+        userId,
+        action: 'HARD_DELETE',
+        table: 'users',
+        description: `hard deleted a User ${id}`,
+        values: JSON.stringify(data),
       },
     });
 

@@ -8,7 +8,6 @@ import { CurrentUserId } from 'src/common/decorators/current-userId.decorator';
 import { Permissions } from 'src/common/decorators/permissions.decorator';
 import { Permission } from 'src/common/types/permission.enum';
 
-import { ShipResponse } from './responses/ship.response';
 import { ShipsService } from './ships.service';
 
 @Resolver(() => Ship)
@@ -27,7 +26,7 @@ export class ShipsResolver {
     return this.shipsService.findAll(args);
   }
 
-  @Mutation(() => ShipResponse)
+  @Mutation(() => String)
   @Permissions(Permission.ADMIN)
   async createShip(
     @Args('input') input: ShipUncheckedCreateInput,
@@ -37,15 +36,14 @@ export class ShipsResolver {
       input.createdById = userId;
     }
 
-    const data = await this.shipsService.create(input);
+    await this.shipsService.create(input);
 
-    return {
-      message: 'Successfully created ship',
-      user: data,
-    };
+    const message = 'Successfully created ship';
+
+    return message;
   }
 
-  @Mutation(() => ShipResponse)
+  @Mutation(() => String)
   @Permissions(Permission.ADMIN)
   async updateShip(
     @Args('ids') ids: string,
@@ -53,6 +51,11 @@ export class ShipsResolver {
     @CurrentUserId() userId: string,
   ) {
     const idsArr = ids.split(',');
+    let action: 'UPDATE' | 'SOFT_DELETE' = 'UPDATE';
+
+    if (input.isDeleted) {
+      action = 'SOFT_DELETE';
+    }
 
     if (!input.updatedById) {
       input.updatedById = userId as ShipUncheckedUpdateInput['updatedById'];
@@ -60,23 +63,26 @@ export class ShipsResolver {
 
     try {
       for (const id of idsArr) {
-        await this.shipsService.update({ id, input, userId, action: 'UPDATE' });
+        await this.shipsService.update({ id, input, userId, action });
       }
     } catch (error) {
       throw new BadRequestException(error.message);
     }
 
+    const _action = `${action
+      .replace(/_/g, ' ')
+      .toLowerCase()
+      .split(' ')
+      .join(' ')}`;
     const message =
       idsArr.length === 1
-        ? `Successfully updated ship ${idsArr[0]}`
-        : `Successfully updated ${idsArr.length} ships`;
+        ? `Successfully ${_action} ship (${idsArr[0]})`
+        : `Successfully ${_action} ${idsArr.length} ships`;
 
-    return {
-      message,
-    };
+    return message;
   }
 
-  @Mutation(() => ShipResponse)
+  @Mutation(() => String)
   @Permissions(Permission.ADMIN)
   async deleteShip(@Args('ids') ids: string, @CurrentUserId() userId: string) {
     const idsArr = ids.split(',');
@@ -91,11 +97,9 @@ export class ShipsResolver {
 
     const message =
       idsArr.length === 1
-        ? `Successfully deleted ship ${idsArr[0]}`
+        ? `Successfully deleted ship (${idsArr[0]})`
         : `Successfully deleted ${idsArr.length} ships`;
 
-    return {
-      message,
-    };
+    return message;
   }
 }

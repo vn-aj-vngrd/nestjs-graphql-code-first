@@ -53,13 +53,13 @@ type LoginResponse {
 }
 
 type Mutation {
-  createShip(input: ShipUncheckedCreateInput!): ShipResponse!
-  createUser(input: UserCreateManyInput!): User!
-  deleteShip(ids: String!): ShipResponse!
-  deleteUser(id: String!): Boolean!
+  createShip(input: ShipUncheckedCreateInput!): String!
+  createUser(input: UserCreateManyInput!): String!
+  deleteShip(ids: String!): String!
+  deleteUser(ids: String!): String!
   login(loginInput: LoginInput!): LoginResponse!
-  updateShip(ids: String!, input: ShipUncheckedUpdateInput!): ShipResponse!
-  updateUser(id: String!, input: UserUncheckedUpdateManyInput!): User!
+  updateShip(ids: String!, input: ShipUncheckedUpdateInput!): String!
+  updateUser(ids: String!, input: UserUncheckedUpdateManyInput!): String!
 }
 
 input NullableDateTimeFieldUpdateOperationsInput {
@@ -103,11 +103,6 @@ type Ship {
   updatedAt: DateTime!
   updatedBy: User
   updatedById: String
-}
-
-type ShipResponse {
-  message: String!
-  user: User!
 }
 
 input ShipUncheckedCreateInput {
