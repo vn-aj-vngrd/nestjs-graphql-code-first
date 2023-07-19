@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from 'src/strategies/jwt.strategy';
-import { LocalStrategy } from 'src/strategies/local.strategy';
+import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
+import { LocalStrategy } from 'src/common/strategies/local.strategy';
 
 import { AuthResolver } from '../auth/auth.resolver';
 import { UsersModule } from '../users/users.module';

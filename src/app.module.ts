@@ -8,10 +8,10 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 
-import { ApiKeyGuard } from './guards/api-key.guard';
-import { GqlThrottlerGuard } from './guards/gql-throttler.guard';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { PermissionsGuard } from './guards/permissions.guard';
+import { ApiKeyGuard } from './common/guards/api-key.guard';
+import { GqlThrottlerGuard } from './common/guards/gql-throttler.guard';
+import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
+import { PermissionsGuard } from './common/guards/permissions.guard';
 import { PrismaMiddleware } from './middlewares/prisma.middleware';
 import { RequestLoggerMiddleware } from './middlewares/request-logger.middleware';
 import { AuthModule } from './modules/auth/auth.module';
