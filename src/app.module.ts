@@ -8,6 +8,7 @@ import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
 
 import { ApiKeyGuard } from './guards/api-key.guard';
+import { GqlThrottlerGuard } from './guards/gql-throttler.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { PrismaMiddleware } from './middlewares/prisma.middleware';
 import { RequestLoggerMiddleware } from './middlewares/request-logger.middleware';
@@ -40,10 +41,10 @@ import { UsersModule } from './modules/users/users.module';
     UsersModule,
   ],
   providers: [
-    // {
-    //   provide: APP_GUARD,
-    //   useClass: GqlThrottlerGuard,
-    // },
+    {
+      provide: APP_GUARD,
+      useClass: GqlThrottlerGuard,
+    },
     {
       provide: APP_GUARD,
       useClass: ApiKeyGuard,
