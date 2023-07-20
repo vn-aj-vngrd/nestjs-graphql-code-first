@@ -60,6 +60,7 @@ type Mutation {
   login(loginInput: LoginInput!): LoginResponse!
   updateShip(ids: String!, input: ShipUncheckedUpdateInput!): String!
   updateUser(ids: String!, input: UserUncheckedUpdateManyInput!): String!
+  uploadImage(image: Upload!): Boolean!
 }
 
 input NullableDateTimeFieldUpdateOperationsInput {
@@ -128,6 +129,9 @@ input ShipUncheckedUpdateInput {
 input StringFieldUpdateOperationsInput {
   set: String
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type User {
   _count: UserCount!

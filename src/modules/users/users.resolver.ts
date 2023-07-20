@@ -1,5 +1,8 @@
 import { BadRequestException } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { createWriteStream, existsSync, mkdirSync } from 'fs';
+import * as GraphQLUpload from 'graphql-upload/GraphQLUpload.js';
+import * as Upload from 'graphql-upload/Upload.js';
 import { User } from 'src/@generated/user/user.model';
 import { UserCreateManyInput } from 'src/@generated/user/user-create-many.input';
 import { UserUncheckedUpdateManyInput } from 'src/@generated/user/user-unchecked-update-many.input';
@@ -24,6 +27,27 @@ export class UserResolver {
   @Permissions(Permission.ADMIN)
   users(@Args() args: ParamArgs) {
     return this.usersService.findAll(args);
+  }
+
+  @Mutation(() => Boolean)
+  @Permissions(Permission.ADMIN)
+  async uploadImage(
+    @Args({ name: 'image', type: () => GraphQLUpload }) image: Upload,
+  ) {
+    const { createReadStream, filename } = await image;
+
+    // Check if the "uploads" directory exists, if not, create it.
+    const uploadDir = './uploads';
+    if (!existsSync(uploadDir)) {
+      mkdirSync(uploadDir);
+    }
+
+    return new Promise(async (resolve, reject) =>
+      createReadStream()
+        .pipe(createWriteStream(`./uploads/${filename}`))
+        .on('finish', () => resolve(true))
+        .on('error', () => reject(false)),
+    );
   }
 
   @Mutation(() => String)
