@@ -1,11 +1,10 @@
-import { HttpStatus } from '@nestjs/common';
+import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import {
   ExpressAdapter,
   NestExpressApplication,
 } from '@nestjs/platform-express';
 import * as compression from 'compression';
-import * as graphqlUploadExpress from 'graphql-upload/graphqlUploadExpress.js';
 import helmet from 'helmet';
 import { PrismaClientExceptionFilter } from 'nestjs-prisma';
 
@@ -15,11 +14,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
     AppModule,
     new ExpressAdapter(),
-  );
-
-  app.use(
-    '/graphql',
-    graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }),
   );
 
   // CORS
@@ -54,7 +48,7 @@ async function bootstrap() {
   app.use(compression());
 
   // Validation
-  // app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe());
 
   // PRISMA EXCEPTION FILTER
   const { httpAdapter } = app.get(HttpAdapterHost);

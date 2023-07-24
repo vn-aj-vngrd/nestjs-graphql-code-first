@@ -3,7 +3,6 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { PrismaModule } from 'nestjs-prisma';
 import { join } from 'path';
@@ -15,6 +14,7 @@ import { PermissionsGuard } from './common/guards/permissions.guard';
 import { PrismaMiddleware } from './common/middlewares/prisma.middleware';
 import { RequestLoggerMiddleware } from './common/middlewares/request-logger.middleware';
 import { AuthModule } from './modules/auth/auth.module';
+import { FilesModule } from './modules/files/files.module';
 import { ShipsModule } from './modules/ships/ships.module';
 import { UsersModule } from './modules/users/users.module';
 
@@ -38,12 +38,10 @@ import { UsersModule } from './modules/users/users.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
     }),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', '..', 'public'),
-    }),
     AuthModule,
     ShipsModule,
     UsersModule,
+    FilesModule,
   ],
   providers: [
     {
