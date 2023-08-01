@@ -38,9 +38,16 @@ model User {
   isDeactivated Boolean @default(false)
   isDeleted     Boolean @default(false)
 
-  shipCreators Ship[]     @relation("shipCreators")
-  shipUpdaters Ship[]     @relation("shipUpdaters")
-  auditLogs    AuditLog[]
+  // Ship
+  shipCreators Ship[] @relation("shipCreators")
+  shipUpdaters Ship[] @relation("shipUpdaters")
+
+  // Audit Logs
+  auditLogs AuditLog[]
+
+  // Voyage
+  voyageCreators Voyage[] @relation("voyageCreators")
+  voyageUpdaters Voyage[] @relation("voyageUpdaters")
 
   @@map("users")
 }
@@ -71,8 +78,9 @@ model AuditLog {
 }
 
 model Ship {
-  id   String @id @default(cuid())
-  name String
+  id     String @id @default(cuid())
+  name   String
+  prefix String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -85,5 +93,219 @@ model Ship {
   createdBy User? @relation("shipCreators", fields: [createdById], references: [id])
   updatedBy User? @relation("shipUpdaters", fields: [updatedById], references: [id])
 
+  // Voyage
+  voyages Voyage[]
+
   @@map("ships")
+}
+
+model Voyage {
+  id     String @id @default(cuid())
+  shipId String
+
+  // Voyage
+  voyageNumber String
+  lorB         String
+
+  // Port
+  from String
+  to   String
+  date DateTime @default(now()) @db.Date
+
+  // Noon Position
+  latitude   String
+  longtitude String
+  cargo      String
+  cargoQty   String
+  trim       String
+  course     String
+
+  // Steamed
+  hours    Float
+  distance Float
+
+  // Average
+  observedSpeed Float
+  engineSpeed   Float
+  slip          Float
+
+  // Port Stay
+  portStayHours Float
+
+  // Actual RPM
+  actualRpmNormalRun    Float
+  actualRpmIncreasedRpm Float
+
+  // Actual Load
+  actualLoadNormalRun    Float
+  actualLoadIncreasedRpm Float
+
+  // ROB Fuel Oil
+  robHsfo  Float
+  robLsfo  Float
+  robHsmdo Float
+  robLsmdo Float
+  robHsmgo Float
+  robLsmgo Float
+
+  // Cons Fuel Oil
+  consHsfo  Float
+  consLsfo  Float
+  consHsmdo Float
+  consLsmdo Float
+  consHsmgo Float
+  consLsmgo Float
+
+  // Running Hours
+  rhMeAtNormalRun     Float
+  rhMeAtIncreasedRpm  Float
+  rhGE1AtNormalRun    Float
+  rhGE1AtIncreasedRpm Float
+  rhGE2AtNormalRun    Float
+  rhGE2AtIncreasedRpm Float
+  rhGE3AtNormalRun    Float
+  rhGE3AtIncreasedRpm Float
+  rhAuxBoiler         Float
+  rhIncinerator       Float
+
+  // HSFO
+  hsfoMeAtNormalRun     Float
+  hsfoMeAtIncreasedRpm  Float
+  hsfoGE1AtNormalRun    Float
+  hsfoGE1AtIncreasedRpm Float
+  hsfoGE2AtNormalRun    Float
+  hsfoGE2AtIncreasedRpm Float
+  hsfoGE3AtNormalRun    Float
+  hsfoGE3AtIncreasedRpm Float
+  hsfoAuxBoiler         Float
+  hsfoIncinerator       Float
+
+  // LSFO
+  lsfoMeAtNormalRun     Float
+  lsfoMeAtIncreasedRpm  Float
+  lsfoGE1AtNormalRun    Float
+  lsfoGE1AtIncreasedRpm Float
+  lsfoGE2AtNormalRun    Float
+  lsfoGE2AtIncreasedRpm Float
+  lsfoGE3AtNormalRun    Float
+  lsfoGE3AtIncreasedRpm Float
+  lsfoAuxBoiler         Float
+  lsfoIncinerator       Float
+
+  // HSMDO
+  hsmdoMeAtNormalRun     Float
+  hsmdoMeAtIncreasedRpm  Float
+  hsmdoGE1AtNormalRun    Float
+  hsmdoGE1AtIncreasedRpm Float
+  hsmdoGE2AtNormalRun    Float
+  hsmdoGE2AtIncreasedRpm Float
+  hsmdoGE3AtNormalRun    Float
+  hsmdoGE3AtIncreasedRpm Float
+  hsmdoAuxBoiler         Float
+  hsmdoIncinerator       Float
+
+  // LSMDO
+  lsmdoMeAtNormalRun     Float
+  lsmdoMeAtIncreasedRpm  Float
+  lsmdoGE1AtNormalRun    Float
+  lsmdoGE1AtIncreasedRpm Float
+  lsmdoGE2AtNormalRun    Float
+  lsmdoGE2AtIncreasedRpm Float
+  lsmdoGE3AtNormalRun    Float
+  lsmdoGE3AtIncreasedRpm Float
+  lsmdoAuxBoiler         Float
+  lsmdoIncinerator       Float
+
+  // HSMGO
+  hsmgoMeAtNormalRun     Float
+  hsmgoMeAtIncreasedRpm  Float
+  hsmgoGE1AtNormalRun    Float
+  hsmgoGE1AtIncreasedRpm Float
+  hsmgoGE2AtNormalRun    Float
+  hsmgoGE2AtIncreasedRpm Float
+  hsmgoGE3AtNormalRun    Float
+  hsmgoGE3AtIncreasedRpm Float
+  hsmgoAuxBoiler         Float
+  hsmgoIncinerator       Float
+
+  // LSMGO
+  lsmgoMeAtNormalRun     Float
+  lsmgoMeAtIncreasedRpm  Float
+  lsmgoGE1AtNormalRun    Float
+  lsmgoGE1AtIncreasedRpm Float
+  lsmgoGE2AtNormalRun    Float
+  lsmgoGE2AtIncreasedRpm Float
+  lsmgoGE3AtNormalRun    Float
+  lsmgoGE3AtIncreasedRpm Float
+  lsmgoAuxBoiler         Float
+  lsmgoIncinerator       Float
+
+  // True Wind
+  dir   String
+  force Float
+
+  // RW
+  rwCode Float
+
+  // Course
+  degrees Float
+
+  // MECO (BN40)
+  bn40Rob  Float
+  bn40Cons Float
+
+  // MECO (BN100)
+  bn100Rob  Float
+  bn100Cons Float
+
+  // MESO
+  mesoRob  Float
+  mesoCons Float
+
+  // GESO
+  gesoRob  Float
+  gesoCons Float
+
+  // OTHERS
+  meTotalRunningHours                Float
+  accFactor                          Float
+  sulfurSettings                     Float
+  feedRateAdjustFactor               Float
+  basicFeedRate                      Float
+  minimumFeedRates                   Float
+  scavengingTemp                     Float
+  foSulfurContent                    Float
+  jacketInletTemp                    Float
+  jacketOutletTemp                   Float
+  geNo1TotalRunHrs                   Float
+  geNo1KwLoad                        Float
+  geNo2TotalRunHrs                   Float
+  geNo2KwLoad                        Float
+  geNo3TotalRunHrs                   Float
+  geNo3KwLoad                        Float
+  radarNo1RunHrsSinceLastNoon        Float
+  radarNo1TxtTime                    Float
+  radarNo2RunHrsSinceLastNoon        Float
+  radarNo2TxtTime                    Float
+  dailySludge                        Float
+  dailyWaterEvaporated               Float
+  dailyQuantityOfIncineratedWasteOil Float
+  totalDailySludgeRob                Float
+
+  remarks     String
+  suptRemarks String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdById String?
+  updatedById String?
+
+  isDeleted Boolean @default(false)
+
+  ship      Ship  @relation(fields: [shipId], references: [id])
+  createdBy User? @relation("voyageCreators", fields: [createdById], references: [id])
+  updatedBy User? @relation("voyageUpdaters", fields: [updatedById], references: [id])
+
+  @@map("voyages")
 }
